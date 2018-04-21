@@ -1,2 +1,3 @@
 #Hotel System Project 
-Developed by 4 Team Member - ITI Laravel Project 
+----------------------
+Developed by 4 Team Members - ITI Laravel Project 
