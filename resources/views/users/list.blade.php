@@ -1,4 +1,4 @@
 @extends('admin.index')
 @section('content')
-   <h2> Client Details!</h2>
+<h1>list</h1>
 @endsection

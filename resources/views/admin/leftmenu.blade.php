@@ -15,17 +15,17 @@
                     </li>
                     <h3 class="menu-title">Manage System</h3>
      <li>
-                        <a href="/users"> <i class="menu-icon fa fa-address-book"></i>Manage Managers</a>
+                        <a href="/"> <i class="menu-icon fa fa-user-circle-o"></i>Manage Managers</a>
                     </li>   <li>
-                        <a href="/users"> <i class="menu-icon fa fa-address-book"></i>Manage Reception</a>
+                        <a href="/"> <i class="menu-icon fa fa-user"></i>Manage Reception</a>
                     </li>
                        <li>
-                        <a href="/users"> <i class="menu-icon fa fa-address-book"></i>Manage Clients</a>
+                        <a href="/users"> <i class="menu-icon   fa fa-child"></i>Manage Clients</a>
                     </li>
                       <li>
-                        <a href="/users"> <i class="menu-icon fa fa-address-book"></i>Manage Floors</a>
+                        <a href="/"> <i class="menu-icon   fa fa-sitemap"></i>Manage Floors</a>
                     </li>  <li>
-                        <a href="/users"> <i class="menu-icon fa fa-address-book"></i>Manage Rooms</a>
+                        <a href="/"> <i class="menu-icon   fa fa-institution"></i>Manage Rooms</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Components</a>
