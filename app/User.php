@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\Room;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,7 +18,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
-
+   
+    public function rooms(){
+        return $this->belongsToMany(Room::class);
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
