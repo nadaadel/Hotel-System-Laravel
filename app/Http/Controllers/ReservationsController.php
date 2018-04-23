@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Room;
 use DB;
@@ -25,14 +26,45 @@ class ReservationsController extends Controller
     public function index()
     {
        $reservations = DB::table('room_user')->get();
-       // $reservations = User::with('user_id')->get();
-     /*  $reservations = User::find(1);
+      // $reservations = User::with('user_id')->get();
+       $reservations = User::find(1);
        foreach ($reservations->rooms as $room) {
-        dd($room->pivot->accompany_number,$room->pivot->client_paid_price);*/
+        dd($room->pivot->accompany_number,$room->pivot->client_paid_price);
 
-        return view('reservation.index',
+       }
+               return view('reservations.index',
         [
             'reservations' => $reservations
         ]);
+    }
+    public function freeRooms(){
+
+       $rooms = Room::all()->where('is_reserved','0');
+        return view('reservations.freeRooms',
+        [
+            'rooms' => $rooms
+        ]);
+    }   
+
+    public function create($room_id)
+    {
+       $room = Room::find($room_id);
+        return view('reservations.create',['room'=>$room]);
+    }   
+    public function store($id,Request $request){
+        $request->validate([
+            'accompany_number' => 'required|max:'.Room::find($id)->capacity,
+        ]);
+        $room=Room::find($id);
+        if($room->is_reserved){
+            return 'hh';
+        }     
+        $room->save();
+        $user=Auth::user();
+        $user->rooms()->attach($user->id,[
+        'accompany_number' => $request->accompany_number,
+        'client_paid_price'=>$request->price
+        ]);
+        return redirect('/reservations/freeRooms'); 
     }
 }

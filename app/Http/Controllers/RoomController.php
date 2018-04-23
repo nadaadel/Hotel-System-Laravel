@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRoomRequest;
 use Illuminate\Http\Request;
 use App\User;
-use App\Role;
+use App\Admin;
 use App\Room;
 use App\Floor;
 
@@ -32,12 +32,12 @@ class RoomController extends Controller
     
     public function create()
     {
-        $roles = Role::all();
+        $admin = Admin::all();
         $floors = Floor::all();
         $rooms = Room::all();
         return view('rooms.create',[
             'floors' => $floors,
-            'roles' => $roles
+            'roles' => $admin
         ]);
     }
 

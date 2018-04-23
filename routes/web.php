@@ -45,4 +45,6 @@ Route::delete('/rooms/delete/{id}', 'RoomController@destroy');
 
 //reservations routes
 Route::get('/client', 'ReservationsController@index')->name('reservation.index');
-
+Route::get('/reservations/freeRooms', 'ReservationsController@freeRooms');
+Route::get('/reservations/rooms/{room_id}','ReservationsController@create');
+Route::post('/reservations/store/{id}','ReservationsController@store');
