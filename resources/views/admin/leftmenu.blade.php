@@ -25,7 +25,7 @@
                       <li>
                         <a href="/"> <i class="menu-icon   fa fa-sitemap"></i>Manage Floors</a>
                     </li>  <li>
-                        <a href="/"> <i class="menu-icon   fa fa-institution"></i>Manage Rooms</a>
+                        <a href="/rooms"> <i class="menu-icon   fa fa-institution"></i>Manage Rooms</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Components</a>

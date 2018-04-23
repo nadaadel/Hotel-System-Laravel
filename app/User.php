@@ -20,7 +20,9 @@ class User extends Authenticatable
     ];
    
     public function rooms(){
-        return $this->belongsToMany(Room::class);
+        return $this->belongsToMany('App\Room')
+        ->withPivot('accompany_number','client_paid_price');
+
     }
     /**
      * The attributes that should be hidden for arrays.

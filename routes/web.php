@@ -20,3 +20,17 @@ Route::get('/', function () {
 
 Route::get('/users', 'UsersController@index')->name('usersList');
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+//Managing Rooms Routes
+
+Route::get('/rooms', 'RoomController@index')->name('rooms.index');
+Route::get('/rooms/edit/{id}', 'RoomController@edit');
+Route::get('/rooms/create', 'RoomController@create');
+Route::post('/rooms','RoomController@store');
+Route::put('/rooms/update/{id}', 'RoomController@update');
+Route::delete('/rooms/delete/{id}', 'RoomController@destroy');
+
+//reservations routes
+Route::get('/client', 'ResrvationsController@index')->name('reservation.index');
