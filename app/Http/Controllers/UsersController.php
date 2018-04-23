@@ -8,9 +8,8 @@ use App\User;
 class UsersController extends Controller
 {
 	public function index(){
-    // $users = User::all();
-    // return view('users.list' ,compact('users'));
-    return view('users.list');
+    $users = User::paginate(4);
+    return view('users.list' ,compact('users'));
 
     }
     public function show($id){
@@ -19,16 +18,25 @@ class UsersController extends Controller
     }
     public function edit($id){
     $user = User::find($id);
-    return view('users.edit' ,compact('user'));
+    return view('users.update' ,compact('user'));
     }
-    public function update($id){
+    public function update($id , Request $request){
     $user = User::find($id);
-    //$user->//param
-    return view('users.list');
+
+    $user->name = $request['name'];
+    $user->email = $request['email'];
+    $user->gender = $request['gender'];
+    $user->phone = $request['phone'];
+    $user->country = $request['country'];
+    $path = $request->file('avatar')->store('public/uploads');
+    dd($path);
+    $user->avatar = $path; 
+    $user->save();
+    return redirect('/users');
     }
     public function destroy($id){
     $user = User::find($id);
     $user->delete();
-    return view('users.list');
+    return redirect('/users');
     }
 }

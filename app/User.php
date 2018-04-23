@@ -16,18 +16,21 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password' , 'gender' , 'phone' , 'country' , 'avatar' ,
     ];
    
+    protected $attributes = [ 'is_registered' => 0];
+    
     public function rooms(){
         return $this->belongsToMany(Room::class);
     }
+    
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 
     ];
 }
