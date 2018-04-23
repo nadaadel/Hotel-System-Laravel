@@ -16,14 +16,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password' , 'gender' , 'phone' , 'country' , 'avatar' ,
     ];
-   
+
+    protected $attributes = [ 'is_registered' => 0];
+
     public function rooms(){
         return $this->belongsToMany('App\Room')
         ->withPivot('accompany_number','client_paid_price');
 
     }
+
     /**
      * The attributes that should be hidden for arrays.
      *

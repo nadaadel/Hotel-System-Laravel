@@ -60,7 +60,49 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+                      
+              
 
+                        <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
+                                <div class="form-group col-md-6">
+                                        <select id="inputState" class="form-control" name="gender">
+                                          <option selected>Choose...</option>
+                                          <option value="male">Male</option>
+                                          <option value="female">Female</option>
+                                        </select>
+                              </div>
+                        </div>
+                        <div class="form-group row">
+                                <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="phone" type="number" name="phone" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+    
+                                    @if ($errors->has('name'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
+                                    <div class="form-group col-md-6">
+                                            <select id="inputState" class="form-control" name="country">
+                                              <option selected>Choose...</option>
+                                              <option value="alex">Alexandria</option>
+                
+                                            </select>
+                                  </div>
+                            </div>
+                            <div class="form-group row">
+                                    <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Upload Yous Avatar') }}</label>
+                                    <div class="form-group col-md-6">
+                                    <input type="file" class="form-control-file" name="avatar">
+
+                                    </div>
+                                  </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

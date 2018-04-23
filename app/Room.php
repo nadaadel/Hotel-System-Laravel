@@ -13,6 +13,7 @@ class Room extends Model
     public function floor(){
         return $this->belongsTo(Floor::class);
     }
+
     public function users(){
         return $this->belongsToMany(User::class);
     }
@@ -21,5 +22,6 @@ class Room extends Model
     {
         return $this->belongsTo(Role::class,'created_by');
     }
+
     
 }
