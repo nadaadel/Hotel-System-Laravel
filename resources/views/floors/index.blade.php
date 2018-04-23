@@ -17,11 +17,11 @@
       <td scope="row">{{$floor->id}}</td>
       <td>{{$floor->name}}</td>
       <td>{{$floor->number}}</td>
-    <!-- if is Admin --><td> {{ $floor->Role->name}} </td>
+    <!-- if is Admin --><td> {{ $floor->Admin->name}} </td>
     <!-- if created by this Admin -->
-      <td><a href={{ URL::to('floors/edit/'. $floor->id ) }} type="button" class="btn btn-warning" >Edit</a></td>
+      <td><a href={{ URL::to('/floors/edit/'. $floor->id ) }} type="button" class="btn btn-warning" >Edit</a></td>
  <td> 
-   <form action="" onsubmit="return confirm('Do you really want to delete?');" method="post" ><input name="_method" value="delete" type="submit" class="btn btn-danger" />
+   <form action="{{ URL::to('/floors/delete/'. $floor->id ) }}" onsubmit="return confirm('Do you really want to delete?');" method="post" ><input name="_method" value="delete" type="submit" class="btn btn-danger" />
     {!! csrf_field() !!}
     {{method_field('Delete')}}</form></td>
 

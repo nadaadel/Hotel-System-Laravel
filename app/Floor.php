@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-use App\Role;
+use App\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,10 +9,10 @@ class Floor extends Model
 {
     //
     protected $fillable = [
-        'name', 'number','created_by'
+        'name', 'number','admin_id'
     ];
 
-    public function Role(){
-        return $this->belongsTo(Role::class);
+    public function Admin(){
+        return $this->belongsTo(Admin::class);
     }
 }

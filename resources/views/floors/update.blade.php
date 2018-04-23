@@ -1,10 +1,10 @@
 @extends('admin.index')
 @section('content')
-<form  method="post" action="floors/update/{{$floor->id}}">
+<form  method="post" action="/floors/update/{{$floor->id}}">
 {{method_field('PUT')}}
 {{csrf_field()}}
 <label>Number</label>
-<input type="text" name="number" value={{$floor->number}} disabled>
+<input type="number" name="number" value={{$floor->number}} disabled>
 <br/>
 <label >Name </label>
 <input type="text" name="name" value="{{$floor->name}}" />
