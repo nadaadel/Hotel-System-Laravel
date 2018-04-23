@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->integer('is_registered')->unsigned();
             $table->integer('registered_by')->unsigned();
             $table->dateTime('last_logged');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

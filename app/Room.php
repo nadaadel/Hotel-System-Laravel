@@ -11,7 +11,7 @@ class Room extends Model
         'capacity', 'price', 'number',
     ];
     public function floor(){
-        return $this->belongsToMany(Floor::class);
+        return $this->belongsTo(Floor::class);
     }
     
 }
