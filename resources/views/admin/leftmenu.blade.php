@@ -14,7 +14,7 @@
                     </li>
                     <h3 class="menu-title">Manage System</h3>
      <li>
-                        <a href="/"> <i class="menu-icon fa fa-user-circle-o"></i>Manage Managers</a>
+                        <a href="/managers"> <i class="menu-icon fa fa-user-circle-o"></i>Manage Managers</a>
                     </li>   <li>
                         <a href="/"> <i class="menu-icon fa fa-user"></i>Manage Reception</a>
                     </li>

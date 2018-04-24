@@ -18,15 +18,17 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->string('phone');
+           $table->string('phone');
             $table->string('country');
             $table->string('gender');
             $table->string('avatar');
-            $table->rememberToken();
             $table->integer('is_registered')->default(0);
             $table->integer('registered_by')->default(null);
             $table->dateTime('last_logged')->default(DB::raw('CURRENT_TIMESTAMP'));
+            
             $table->timestamps();
+
+
         });
     }
 

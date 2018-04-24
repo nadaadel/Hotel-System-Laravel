@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admins;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\Admin;
+
 
 class AdminController extends Controller
 {
@@ -23,12 +24,8 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $user=Admin::find(2);
-        //$user->assignRole('writer');
-        //if($user->hasRole('superadmin'))
-       // dd('true');
-
-        return view('admin');
+    {     
+       return view('admin.index');
+       
     }
 }
