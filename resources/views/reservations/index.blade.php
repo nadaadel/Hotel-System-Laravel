@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@extends('admin.index')
 @section('content')
 <center>
   <h1>My Reservations</h1><br>

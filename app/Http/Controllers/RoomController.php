@@ -33,13 +33,17 @@ class RoomController extends Controller
     */
     public function create()
     {
+<<<<<<< HEAD
         $roles = Admin::find(1)->where(Auth::guard('admin')->user()->id);
    
+=======
+        $admin = Admin::all();
+>>>>>>> a8c136f2b314e1a53fa7f3327ad2dcdc93c1645c
         $floors = Floor::all();
         $rooms = Room::all();
         return view('rooms.create',[
             'floors' => $floors,
-            'roles' => $roles
+            'roles' => $admin
         ]);
     }
 
