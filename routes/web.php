@@ -18,6 +18,7 @@ Route::post('/floors/store/{floor_number}', 'FloorsController@store');
 Route::get('/floors/edit/{id}', 'FloorsController@edit');
 Route::put('/floors/update/{id}', 'FloorsController@update');
 Route::delete('floors/delete/{id}','FloorsController@destroy');
+Route::get('floors/datatable', 'FloorsController@datatable')->name('floors');
 
 //pending approval
 Route::get('/reservations/pending', 'ReservationsController@getPending')->name('');

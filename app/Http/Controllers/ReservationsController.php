@@ -42,7 +42,7 @@ class ReservationsController extends Controller
        $rooms = Room::all()->where('is_reserved','0');
         return view('reservations.freeRooms',
         [
-            'rooms' => $rooms
+            'rooms' => $rooms,
         ]);
     }   
 

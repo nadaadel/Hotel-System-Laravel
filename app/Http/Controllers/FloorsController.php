@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Floor;
+use yajra\Datatables\Datatables;
 
 class FloorsController extends Controller
 {
+
     public function create (){
         return view('floors.create',['floor_number'=>$this->generateFloorNumber()]); 
     }
@@ -24,9 +26,28 @@ class FloorsController extends Controller
        return redirect('floors'); 
     }
 
+    public function datatable()
+    {
+        $floors = Floor::select(['id', 'name', 'number', 'admin_id']);
+        return Datatables::of($floors)
+        ->addColumn('action', function ($floor) {
+            return '<a href="/floors/edit/'. $floor->id.'"  type="button" class="btn btn-warning" >Edit</a>
+            <form action="{{ URL::to(\'/floors/delete/\'. $floor->id ) }}" 
+            onsubmit="return confirm(\'Do you really want to delete?\');" 
+            method="post" ><input name="_method" value="delete" type="submit" 
+            class="btn btn-danger" />
+    </form>';
+        })
+        ->make(true);
+        /*
+        return DataTables::eloquent($floors)
+        ->addColumn('link', '<a href="#">Html Column</a>')
+        ->addColumn('action', 'path.to.view')
+        ->rawColumns(['link', 'action'])
+        ->toJson();*/
+    }
     public function index (){ 
-        $allFloors=Floor::all();  
-        return view('floors.index',['floors'=>$allFloors]);
+        return view('floors.index');
      }
 
     public function edit($id){
