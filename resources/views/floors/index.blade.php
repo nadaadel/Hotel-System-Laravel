@@ -19,7 +19,6 @@
                                 <th>Number</th>
                                 <th>Admin No</th>
                                 <th >Action</th>
-                                {{ csrf_field() }}
                             </tr>
                         </thead>
                     </table>
@@ -40,7 +39,7 @@ $(document).ready(function() {
             {data: 'id', name: 'id'},
             {data: 'name', name: 'name'},
             {data: 'number', name: 'number'},
-            {data: 'admin_id', name: 'admin_id'},
+            {data: 'admin.name', name: 'admin.name'},
             {data: 'action', name: 'action', orderable: false, searchable: false},      
         ]
     });
