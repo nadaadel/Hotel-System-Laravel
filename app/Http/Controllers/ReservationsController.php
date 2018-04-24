@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Room;
 use DB;
-use Auth;
+//use Auth;
 
 
 class ReservationsController extends Controller
@@ -26,24 +26,16 @@ class ReservationsController extends Controller
     }
     public function index()
     {
-<<<<<<< HEAD
        $reservations = DB::table('room_user')->where('user_id', Auth::user()->id)->get();
        // $reservations = User::with('user_id')->get();
      /*  $reservations = User::find(1);
-=======
        $reservations = DB::table('room_user')->get();
       // $reservations = User::with('user_id')->get();
        $reservations = User::find(1);
->>>>>>> a8c136f2b314e1a53fa7f3327ad2dcdc93c1645c
        foreach ($reservations->rooms as $room) {
         dd($room->pivot->accompany_number,$room->pivot->client_paid_price);
-
-<<<<<<< HEAD
+*/
         return view('reservations.index',
-=======
-       }
-               return view('reservations.index',
->>>>>>> a8c136f2b314e1a53fa7f3327ad2dcdc93c1645c
         [
             'reservations' => $reservations
         ]);

@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "a6aca4113dc2370399819373164e7d02",
-=======
     "content-hash": "894948720ac479c426e5d47d991461b8",
->>>>>>> a8c136f2b314e1a53fa7f3327ad2dcdc93c1645c
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1954,16 +1950,16 @@
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "2.12.0",
+            "version": "2.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "666e19211a036a608806489adf5d7e8249938d31"
+                "reference": "c352d83ecb5efb2d68169a1de7b7e263135ad807"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/666e19211a036a608806489adf5d7e8249938d31",
-                "reference": "666e19211a036a608806489adf5d7e8249938d31",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/c352d83ecb5efb2d68169a1de7b7e263135ad807",
+                "reference": "c352d83ecb5efb2d68169a1de7b7e263135ad807",
                 "shasum": ""
             },
             "require": {
@@ -2014,7 +2010,7 @@
                 "security",
                 "spatie"
             ],
-            "time": "2018-04-22T22:06:50+00:00"
+            "time": "2018-04-23T19:06:39+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3633,7 +3629,7 @@
             ],
             "authors": [
                 {
-                    "name": "Padraic Brady",
+                    "name": "Pádraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },
