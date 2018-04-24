@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRoomRequest;
 use Illuminate\Http\Request;
 use App\User;
-use App\Role;
+use App\Admin;
 use App\Room;
 use App\Floor;
+use Auth;
 
 class RoomController extends Controller
 {
@@ -18,7 +19,7 @@ class RoomController extends Controller
             'rooms' => $rooms
         ]);
     }
-    
+    /*
     public function generateRoomNumber(){
         $number=mt_rand(1000,9999);
         if($this->RoomNumberExists($number)){
@@ -29,10 +30,11 @@ class RoomController extends Controller
     public function RoomNumberExists($number){
         return Room::where('number',$number)->exists();
     }
-    
+    */
     public function create()
     {
-        $roles = Role::all();
+        $roles = Admin::find(1)->where(Auth::guard('admin')->user()->id);
+   
         $floors = Floor::all();
         $rooms = Room::all();
         return view('rooms.create',[
@@ -43,13 +45,13 @@ class RoomController extends Controller
 
     public function store(StoreRoomRequest $request)
     {
-        
         Room::create([
             'capacity' => $request->capacity,
             'price' => $request->price,
-            'number' => $this->generateRoomNumber(),
+            //'number' => $this->generateRoomNumber(),
+            'number' => $request->number,
             'floor_id' => $request->floor_id,
-            'created_by'=>$request->created_by,
+            'admin_id'=>Auth::guard('admin')->user()->id,
         ]);
         
        return redirect(route('rooms.index')); 
@@ -60,7 +62,7 @@ class RoomController extends Controller
     public function edit($id)
     {
         $floors = Floor::all();
-        $roles = Role::all();
+        $roles = Admin::all();
         if($id != " "){
            $room = Room::find($id);
            if ( $room){
@@ -73,14 +75,13 @@ class RoomController extends Controller
     {
      
         $users = User::all();
-        $roles = Role::all();
+        $roles = Admin::all();
         $room = Room::find($id);
 
         $room->capacity= $request->input('capacity');
+        $room->number = $request->input('number');
         $room->price = $request->input('price');
         $room->floor_id=$request->input('floor_id');
-        $room->created_by=$request->input('created_by');
-
         $room->save();
 
 

@@ -20,7 +20,7 @@ class CreateRoomsTable extends Migration
             $table->integer('price')->unsigned();
             $table->integer('floor_id')->unsigned();
             $table->integer('admin_id');
-            $table->integer('is_reserved');
+            $table->integer('is_reserved')->defaul(0);
             $table->timestamps();
         });
     }

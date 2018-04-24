@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Room;
 use DB;
+use Auth;
 
 
 class ReservationsController extends Controller
@@ -24,13 +25,13 @@ class ReservationsController extends Controller
     }
     public function index()
     {
-       $reservations = DB::table('room_user')->get();
+       $reservations = DB::table('room_user')->where('user_id', Auth::user()->id)->get();
        // $reservations = User::with('user_id')->get();
      /*  $reservations = User::find(1);
        foreach ($reservations->rooms as $room) {
         dd($room->pivot->accompany_number,$room->pivot->client_paid_price);*/
 
-        return view('reservation.index',
+        return view('reservations.index',
         [
             'reservations' => $reservations
         ]);

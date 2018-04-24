@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     protected $fillable = [
-        'capacity', 'price', 'number','created_by','floor_id'
+        'capacity', 'price', 'number','admin_id','floor_id',
     ];
     public function floor(){
         return $this->belongsTo(Floor::class);
@@ -20,7 +20,7 @@ class Room extends Model
 
     public function role()
     {
-        return $this->belongsTo(Role::class,'created_by');
+        return $this->belongsTo(Admin::class,'admin_id');
     }
 
     

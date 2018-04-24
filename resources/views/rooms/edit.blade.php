@@ -15,7 +15,7 @@
 <form method="post" action="/rooms/update/{{ $room->id}}">
 {{csrf_field()}}
 {{method_field('PUT')}}
-Number :- <input disabled type="number" name="number" value="{{ $room->number }}">
+Number :- <input type="number" name="number" value="{{ $room->number }}">
 <br><br>
 Capacity :- 
 <input type="number"   name="capacity"  value="{{$room->capacity}}"> 
@@ -32,13 +32,6 @@ Floor Name:-
 
 </select>
 <br>
-ٌRoom Creator:-
-<select class="form-control" name="created_by" >
-@foreach ($roles as $role)
-    <option @if($role->id == $room->role->id) selected @endif value="{{$role->id}}">{{$role->name}}</option>
-@endforeach
-
-</select>
 
 <br>
 

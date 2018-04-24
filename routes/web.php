@@ -20,7 +20,7 @@ Route::get('/reservations/pending', 'ReservationsController@getPending')->name('
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin.index');
 });
 
 
@@ -47,5 +47,5 @@ Route::put('/rooms/update/{id}', 'RoomController@update');
 Route::delete('/rooms/delete/{id}', 'RoomController@destroy');
 
 //reservations routes
-Route::get('/client', 'ReservationsController@index')->name('reservation.index');
+Route::get('/client', 'ReservationsController@index')->name('reservation.index')->middleware('auth');
 
