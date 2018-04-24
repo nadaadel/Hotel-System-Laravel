@@ -11,6 +11,7 @@ Route::post('/reservations/payment', 'CheckoutController@payment');
 
 //Clients Route
 Route::get('/users', 'UsersController@index')->name('usersList');
+Route::get('/users/datatable', 'UsersController@datatable')->name('userslist');
 Route::get('/users/show/{id}', 'UsersController@show')->name('usersShow');
 Route::get('/users/edit/{id}', 'UsersController@edit')->name('usersEdit');
 Route::post('/users/create/{id}', 'UsersController@create')->name('usersCreate');
@@ -18,7 +19,6 @@ Route::put('/users/update/{id}', 'UsersController@update')->name('usersUpdate');
 Route::delete('/users/delete/{id}', 'UsersController@destroy')->name('usersdelete');
 
 //floors 
-
 Route::get('/floors', 'FloorsController@index');
 Route::get('/floors/create', 'FloorsController@create');
 Route::post('/floors/store/{floor_number}', 'FloorsController@store');

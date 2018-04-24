@@ -28,24 +28,15 @@ class FloorsController extends Controller
 
     public function datatable()
     {
-        $floors = Floor::select(['id', 'name', 'number', 'admin_id']);
+        $floors = Floor::with('admin')->select(['id', 'name', 'number']);
         return Datatables::of($floors)
         ->addColumn('action', function ($floor) {
             return '<a href="/floors/edit/'. $floor->id.'"  type="button" class="btn btn-warning" >Edit</a>
-            <form action="{{ URL::to(\'/floors/delete/\'. $floor->id ) }}" 
-            onsubmit="return confirm(\'Do you really want to delete?\');" 
-            method="post" ><input name="_method" value="delete" type="submit" 
-            class="btn btn-danger" />
-    </form>';
-        })
-        ->make(true);
-        /*
-        return DataTables::eloquent($floors)
-        ->addColumn('link', '<a href="#">Html Column</a>')
-        ->addColumn('action', 'path.to.view')
-        ->rawColumns(['link', 'action'])
-        ->toJson();*/
+            <form action="floors/delete/'.$floor->id.'" 
+            onsubmit="return confirm(\'Do you really want to delete?\');" method="post" >'.csrf_field().method_field("Delete").'<input name="_method" value="delete" type="submit" class="btn btn-danger" /></form>';
+        })->make(true);
     }
+    
     public function index (){ 
         return view('floors.index');
      }

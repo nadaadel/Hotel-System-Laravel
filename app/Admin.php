@@ -10,7 +10,9 @@ class Admin extends Authenticatable
 {
     use Notifiable;
     use HasRoles;
-
+    protected $fillable = [
+        'name', 'email', 'password' , 'national_id' , 'avatar' ,'is_ban' ,
+    ];
     protected $guard_name = 'admin';
 
     protected $guard = 'admin' ;
