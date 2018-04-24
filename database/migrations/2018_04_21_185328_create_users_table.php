@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('gender');
             $table->string('avatar');
             $table->rememberToken();
+            $table->string('stripe_token')->nullable();
             $table->integer('is_registered')->default(0);
             $table->integer('registered_by')->default(0);
             $table->dateTime('last_logged')->default(DB::raw('CURRENT_TIMESTAMP'));

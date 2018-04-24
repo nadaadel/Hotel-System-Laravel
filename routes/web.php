@@ -2,6 +2,13 @@
 //Auth Route
 Auth::routes();
 
+//Home Route
+Route::get('/', 'HomeController@index');
+
+//Payment Route
+Route::get('/reservations/checkout', 'CheckoutController@checkout');
+Route::post('/reservations/payment', 'CheckoutController@payment');
+
 //Clients Route
 Route::get('/users', 'UsersController@index')->name('usersList');
 Route::get('/users/show/{id}', 'UsersController@show')->name('usersShow');
@@ -20,20 +27,14 @@ Route::put('/floors/update/{id}', 'FloorsController@update');
 Route::delete('floors/delete/{id}','FloorsController@destroy');
 Route::get('floors/datatable', 'FloorsController@datatable')->name('floors');
 
-//pending approval
-Route::get('/reservations/pending', 'ReservationsController@getPending')->name('');
 
-Route::get('/', function () {
-    return view('admin.index');
-});
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('admin')->group(function() {
 Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
 Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
 Route::get('/', 'AdminController@index')->name('admin.dashboard');
    // Route::post('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
    }) ;
-
 
 
 //Managing Rooms Routes
