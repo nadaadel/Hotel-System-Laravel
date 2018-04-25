@@ -44,6 +44,7 @@ class FloorsController extends Controller
         return view('floors.index');
      }
 
+
     public function edit($id){
         $floor=Floor::find($id);
         return view('floors.update',['floor'=> $floor] );

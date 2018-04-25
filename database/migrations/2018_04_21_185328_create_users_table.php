@@ -26,7 +26,10 @@ class CreateUsersTable extends Migration
             $table->integer('is_registered')->default(0);
             $table->integer('registered_by')->default(0);
             $table->dateTime('last_logged')->default(DB::raw('CURRENT_TIMESTAMP'));
+            
             $table->timestamps();
+
+
         });
     }
 
