@@ -17,10 +17,9 @@ class CreateAdminsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('national_id');
+            $table->string('national_id')->nullable();
             $table->string('password');
-            $table->integer('is_ban')->unsigned();
-            $table->string('avatar');
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

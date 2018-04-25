@@ -1,8 +1,8 @@
 @extends('admin.index')
 
 @section('content')
-<a href={{ URL::to('/users/create' )}} >
-  <input type="button" class="btn btn-success" value='Create Client '/></a>
+<a href={{ URL::to('receptionists/create' )}} >
+  <input type="button" class="btn btn-success" value='Create Receptionist '/></a>
 <br/>
 
 <div class="container">
@@ -14,14 +14,12 @@
                     <table id="myTable" class="table table-hover table-bordered table-striped datatable" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>id</th>
                                 <th>Name</th>
-                                <th>Number</th>
-                                <th>Admin No</th>
-                              {{-- @role('superadmin') --}}
+                                <th>Email</th>
+                                <th>Created-At</th>
+                                <th>Created By</th>
                                 <th >Action</th>
-                              {{-- @endrole --}}
-                                {{ csrf_field() }}
                             </tr>
                         </thead>
                     </table>
@@ -37,13 +35,15 @@ $(document).ready(function() {
     $('#myTable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ route('userslist') }}',
+        ajax: '{{ url('data') }}',
         columns: [
             {data: 'id', name: 'id'},
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
-            {data: 'gender', name: 'gender'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},      
+            {data:'created_at',name:'created_at'},
+            {data:'managername',name:'managername'}   ,
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+          
         ]
     });
 });

@@ -37,10 +37,18 @@
                         <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
                         <div class="form-group col-md-6">
                                 <select id="inputState" class="form-control" name="gender" value="{{$user->gender}}">
-                                  <option >Choose...</option>
-                                  {{-- <option value="male" @if({{$user->gender}} == "male") echo "selected"; @endif>Male</option> --}}
-                                  <option value="male">Male</option>                                  
-                                  <option value="female">Female</option>
+                                  <option>Choose...</option>
+                                  @if($user->gender == "male")  
+                                  <option value="male" selected>Male</option> 
+                                  <option value="female" >Female</option>
+                                  
+                                  @else
+                                  <option value="female" selected>Female</option>
+                                  <option value="male" >Male</option> 
+                                                                    
+                                  @endif   
+
+                                                               
                                 </select>
                       </div>
                 </div>
@@ -58,11 +66,17 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
+                            <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
                             <div class="form-group col-md-6">
-                                    <select id="inputState" class="form-control" name="country" value="{{$user->country}}">
-                                      <option value="test" >Choose...</option>
-                                      <option value="alexandria">Alexandria</option>
+                                    <select id="inputState" class="form-control" name="country">
+                                      <option value="" >Choose...</option>
+                                      @foreach ($countries as $key => $value)
+                                        @if($user->country == $value["name"])
+                                    <option selected>{{ $value["name"] }}</option> 
+                                      @endif
+                                    <option >{{ $value["name"] }}</option> 
+                                      
+                                      @endforeach
         
                                     </select>
                           </div>

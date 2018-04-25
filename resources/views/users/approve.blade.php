@@ -1,9 +1,7 @@
 @extends('admin.index')
 
 @section('content')
-<a href={{ URL::to('/users/create' )}} >
-  <input type="button" class="btn btn-success" value='Create Client '/></a>
-<br/>
+
 
 <div class="container">
     <div class="row">
@@ -14,14 +12,10 @@
                     <table id="myTable" class="table table-hover table-bordered table-striped datatable" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                
                                 <th>Name</th>
-                                <th>Number</th>
-                                <th>Admin No</th>
-                              {{-- @role('superadmin') --}}
+                                <th>Is register</th>
                                 <th >Action</th>
-                              {{-- @endrole --}}
-                                {{ csrf_field() }}
                             </tr>
                         </thead>
                     </table>
@@ -37,13 +31,15 @@ $(document).ready(function() {
     $('#myTable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ route('userslist') }}',
+        ajax: '{{ url('users/data') }}',
         columns: [
-            {data: 'id', name: 'id'},
+           
             {data: 'name', name: 'name'},
-            {data: 'email', name: 'email'},
-            {data: 'gender', name: 'gender'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},      
+           
+            {data:'is_registered',name:'is_registered'},
+            
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+          
         ]
     });
 });

@@ -39,9 +39,11 @@ class FloorsController extends Controller
         })
         ->make(true);
     }
+    
     public function index (){ 
         return view('floors.index');
      }
+
 
     public function edit($id){
         $floor=Floor::find($id);
