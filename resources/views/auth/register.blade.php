@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
+                                    <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
                                     <div class="form-group col-md-6">
                                             <select id="inputState" class="form-control" name="country">
                                               <option value="" >Choose...</option>

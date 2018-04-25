@@ -12,7 +12,10 @@ class Admin extends Authenticatable implements BannableContract
 {
     use Notifiable;
     use HasRoles;
+
     use Bannable;
+
+
 
     protected $guard_name = 'admin';
 
