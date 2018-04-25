@@ -1,35 +1,48 @@
 @extends('admin.index')
+
 @section('content')
+<a href={{ URL::to('managers/create' )}} >
+  <input type="button" class="btn btn-success" value='Create Manager '/></a>
+<br/>
 
-  <h1>Managers Data</h1><a href='/managers/create'><button  type="button" class="btn btn-success">New Manager</button></a>
-        <table class="table table-striped">
-      
-        <th><strong> Name </strong></th>
-        <th><strong> Email </strong></th>
-        <th><strong> Actions </strong></th>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
 
-        @foreach ($managers as $manager)
-        <tr>
-
-<td> {{ $manager->name }} </td>
-<td> {{ $manager->email }} </td>
-
-<td>   
-
-
-<a href='/managers/{{$manager->id }}/edit' ><button class="btn-warning">Edit</button></a>
-
-
-    
-    <a href='/managers/{{$manager->id}}'><button class="btn btn-default">View</button></a>
-    <form method='post' action='/managers/{{$manager->id}}'>
-    {{csrf_field()}}
-    {{method_field('DELETE')}}
-    <button type="submit" class="btn btn-danger" onclick="return confirm('Are You Sure You Would Like to Delete This Post?');">Delete</button>
-    </form>
-
-@endforeach
-
-        </tr>
-        </table>
-        @endsection
+                <div class="panel-body">
+                    <table id="myTable" class="table table-hover table-bordered table-striped datatable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                            
+                                <th >Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#myTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ url('datatable') }}',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
+            
+            {data: 'action', name: 'action', orderable: false, searchable: false},      
+        ]
+    });
+});
+</script>
+@endsection

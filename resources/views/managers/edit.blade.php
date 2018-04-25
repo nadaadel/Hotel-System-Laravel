@@ -75,7 +75,7 @@
                           </div>
                         </div>
                         
-
+                        <input id="created_by" name="created_by" type="hidden" value= {{$manager->created_by}} >
                         <br>
 
                         <div class="form-group row mb-0">

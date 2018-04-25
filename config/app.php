@@ -151,8 +151,10 @@ return [
          * Package Service Providers...
          */
         Spatie\Permission\PermissionServiceProvider::class,
+
         Yajra\Datatables\DatatablesServiceProvider::class,
         Cog\Laravel\Ban\Providers\BanServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

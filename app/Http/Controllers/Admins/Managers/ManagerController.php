@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateAdminRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Admin;
 uSE Auth;
+use yajra\Datatables\Datatables;
 
 class ManagerController extends Controller
 {
@@ -31,11 +32,23 @@ class ManagerController extends Controller
     public function index()
     { 
         //to get admins has role manager
-        $managers=Admin::role('manager')->get();
-        return view('managers.index',[
-        'managers'=> $managers,
-     
-       ]);
+        
+        return view('managers.index');
+       
+    }
+
+    public function datatable()
+    {
+        $manager =Admin::role('manager')->select(['id', 'name', 'email']);
+
+        return Datatables::of($manager)
+        ->addColumn('action', function ($manager) {
+            
+            return view('managers.action',['id'=>$manager->id]);
+            
+        })->make(true);
+       
+        
     }
 
     public function create()

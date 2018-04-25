@@ -16,7 +16,7 @@
      <li>
                         <a href="/managers"> <i class="menu-icon fa fa-user-circle-o"></i>Manage Managers</a>
                     </li>   <li>
-                        <a href="/"> <i class="menu-icon fa fa-user"></i>Manage Reception</a>
+                        <a href="/receptionists"> <i class="menu-icon fa fa-user"></i>Manage Reception</a>
                     </li>
                        <li>
                         <a href="/users"> <i class="menu-icon   fa fa-child"></i>Manage Clients</a>

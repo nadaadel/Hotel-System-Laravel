@@ -2,6 +2,7 @@
 
 namespace App;
 use App\Room;
+use App\Payment;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -25,6 +26,9 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Room')
         ->withPivot('accompany_number','client_paid_price');
 
+    }
+    public function payment(){
+        return $this->hasMany(Payment::class);
     }
 
     /**

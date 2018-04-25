@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admins\Managers;
+namespace App\Http\Controllers\Admins\Receptionists;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,9 +10,12 @@ use App\Http\Requests\UpdateAdminRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Admin;
 uSE Auth;
+use yajra\Datatables\Datatables;
 
 class ReceptionistController extends Controller
+
 {
+    
     /**
      * Create a new controller instance.
      *
@@ -31,11 +34,45 @@ class ReceptionistController extends Controller
     public function index()
     { 
         //to get admins has role manager
-        $receptionists=Admin::role('receptionist')->get();
-        return view('receptionists.index',[
-        'receptionists'=> $receptionist,
-     
-       ]);
+        
+        return view('receptionists.index');
+       
+    }
+   
+
+    public function datatable()
+    {   
+        
+        $receptionists =Admin::role('receptionist')->select(['id', 'name', 'email','created_at','created_by','banned_at']);
+
+        return Datatables::of($receptionists)
+        ->addColumn('action', function ($receptionists) {
+
+            $receptionist=Admin::find($receptionists->id);
+            $loginname=Auth::guard('admin')->user();
+            if(($loginname->name==$receptionists->created_by)||($loginname->hasRole('superadmin'))){
+                $loginname="yes";
+            }
+            return view('receptionists.action',['id'=>$receptionists->id,'ban'=>$loginname,'receptionist'=>$receptionist]);
+           
+            
+            
+        })
+        ->addColumn('managername', function ($receptionists) {
+                
+          
+            
+            $loginname=Auth::guard('admin')->user();
+            if($loginname->hasRole('superadmin')){
+                return view('receptionists.managername',['name'=>$receptionists->created_by]);
+            }
+            
+            
+        })->make(true);
+        
+        
+       
+        
     }
 
     public function create()
@@ -55,12 +92,14 @@ class ReceptionistController extends Controller
          else{
             $path="public/images/12.jpg";
         }
+         $currentlogin=Auth::guard('admin')->user();
         
          $receptionist= Admin::create([
             'name' => $request->name,
             'email' => $request->email,
             'national_id' => $request->national_id,
             'password'=>Hash::make($request->password),
+            'created_by'=>$currentlogin->name,
             'avatar'=>$path,
 
          ]);
@@ -71,23 +110,23 @@ class ReceptionistController extends Controller
 
        public function show ($id){
         $receptionist = Admin::where('id', '=', $id)->get()->first();
+        
         return view('receptionists.show',[
             
             'receptionist' => $receptionist,
-          
             
-        ]);
+         ]);
+        
 
        }
 
-       public function edit($id)
-       {
-          $receptionist=Admin::find($id);
-          
-        
-         return view('receptionists.edit',[
+        public function edit($id)
+        {
+         $receptionist=Admin::find($id);
+         
+          return view('receptionists.edit',[
             
-            'receptionist' => $receptionists,
+            'receptionist' => $receptionist,
             
          ]);
         
@@ -96,7 +135,7 @@ class ReceptionistController extends Controller
     
       public function update(UpdateAdminRequest $request,$id)
        {
-          $receptionist= Admin::find($id);
+        $receptionist = Admin::find($id);
           $file=$request->file('photo');
           
           if ($file){
@@ -106,13 +145,14 @@ class ReceptionistController extends Controller
              $path=$receptionist->avatar;
          }
          
-
+        
          $receptionist->update([
 
             'name' => $request->name,
             'email' => $request->email,
             'national_id'=> $request->national_id,
             'password'=>$request->password,
+            
             'avatar'=>$path,
           ]);
          return redirect(route('receptionistList'));
@@ -123,12 +163,30 @@ class ReceptionistController extends Controller
         public function destroy($id)
         {
             $receptionist=Admin::find($id);
-            $ReceptionistAvatar=$receptionist->avatar;
-            Storage::delete( $ReceptionistAvatar);
+            $receptionistAvatar=  $receptionist->avatar;
+            Storage::delete($receptionistAvatar);
             Admin::find($id)->delete();
             return redirect(route('receptionistList'));
           
            
+        }
+        function ban($id){
+            $receptionist=Admin::find($id);
+            if (!$receptionist->isBanned())
+            {
+                $receptionist->ban();
+            }
+            
+            return redirect(route('receptionistList'));
+        }
+        function unban($id){
+            $receptionist=Admin::find($id);
+            if ($receptionist->isBanned())
+            {
+                $receptionist->unban();
+            }
+            
+            return redirect(route('receptionistList'));
         }
        
     

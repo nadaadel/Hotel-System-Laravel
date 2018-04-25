@@ -17,7 +17,7 @@ class Admin extends Authenticatable implements BannableContract
     protected $guard_name = 'admin';
 
     protected $guard = 'admin' ;
-    protected $fillable=['name','password','national_id','email','avatar'];
+    protected $fillable=['name','password','national_id','email','avatar','created_by'];
 
 
 
