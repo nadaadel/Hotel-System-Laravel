@@ -1,40 +1,54 @@
+
 @extends('admin.index')
+
 @section('content')
+<a href={{ URL::to('rooms/create' )}} >
+  <input type="button" class="btn btn-success" value='Create a New Room '/></a>
+<br/>
 
-  <h1>Rooms Data</h1> <a href="/rooms/create" >
-    <center><button class="btn-success">Create Room</button></a></center>
-        <table class="table table-striped">
-      
-        <th><strong> Number </strong></th>
-        <th><strong> Capacity </strong></th>
-        <th><strong> Price </strong></th>
-        <th><strong> Floor Name </strong></th>
-        <th><strong> Created At </strong></th>
-        <th><strong> Created By </strong></th>
-      
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
 
-        <th><strong> Actions </strong></th>
-
-        @foreach ($rooms as $room)
-        <tr>
-
-<td> {{ $room->number }} </td>
-<td> {{ $room->capacity }} </td>
-<td > {{ $room->price/100 }} $</td>
-<td>{{ $room->floor->name }} </td>
-<td> {{ date('M j, Y', strtotime( $room->created_at )) }} </td>
-<td>{{$room->role->name}} </td>
-<td>    
-    <a href="/rooms/edit/{{ $room->id }}" ><button class="btn-warning">Edit</button></a>
-
-    <form action="/rooms/delete/{{$room->id}}" method="POST">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-danger" onclick="return confirm('are you sure?')" value="Delete"/>Delete</button>
-            </form>
-
-@endforeach
-
-        </tr>
-        </table>
-        @endsection
+                <div class="panel-body">
+                    <table id="myTable" class="table table-hover table-bordered table-striped datatable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Capacity</th>
+                                <th>Price</th>
+                                <th> Floor Name</th>
+                                <th>Created At</th>
+                                <th>Created By</th>
+                                <th >Action</th>
+                                {{ csrf_field() }}
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#myTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('rooms') }}',
+        columns: [
+            {data: 'number', name: 'number'},
+            {data: 'capacity', name: 'capacity'},
+            {data: 'price', name: 'price'},
+            {data: 'floor.name', name: 'floor.name'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'admin.name', name: 'admin.name'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},      
+        ]
+    });
+});
+</script>
+@endsection

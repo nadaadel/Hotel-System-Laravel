@@ -13,9 +13,9 @@
 
         @foreach ($reservations as $reservation)
         <tr>
-<td> {{ $reservation->room_id }} </td>
-<td> {{ $reservation->accompany_number }} </td>
-<td > {{ $reservation->client_paid_price/100 }} $</td>
+<td> {{ $reservation->number }} </td>
+<td> {{ $reservation->pivot->accompany_number }} </td>
+<td > {{ $reservation->pivot->client_paid_price/100 }} $</td>
 
 @endforeach
 

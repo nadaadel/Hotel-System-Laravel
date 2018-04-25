@@ -18,10 +18,8 @@ class Room extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function role()
-    {
-        return $this->belongsTo(Admin::class,'admin_id');
+    public function Admin(){
+        return $this->belongsTo(Admin::class);
     }
-
     
 }

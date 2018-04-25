@@ -8,6 +8,7 @@ use App\Admin;
 use App\Room;
 use App\Floor;
 use Auth;
+use yajra\Datatables\Datatables;
 
 class RoomController extends Controller
 {
@@ -19,18 +20,7 @@ class RoomController extends Controller
             'rooms' => $rooms
         ]);
     }
-    /*
-    public function generateRoomNumber(){
-        $number=mt_rand(1000,9999);
-        if($this->RoomNumberExists($number)){
-            return generateRoomNumber();
-        }
-        return $number;
-    }
-    public function RoomNumberExists($number){
-        return Room::where('number',$number)->exists();
-    }
-    */
+  
     public function create()
     {
 
@@ -101,5 +91,14 @@ class RoomController extends Controller
          return redirect()->route('rooms.index');
      }
  
- 
+     public function datatable()
+    {
+        $rooms = Room::with('admin','floor')->select('rooms.*');
+        return Datatables::of($rooms)
+            ->addColumn('action', function ($room) {
+                return '<a href="/rooms/edit/'. $room->id.'"  type="button" class="btn btn-warning" >Edit</a>
+                <form action="rooms/delete/'.$room->id.'" 
+                onsubmit="return confirm(\'Do you really want to delete?\');" method="post" >'.csrf_field().method_field("Delete").'<input name="_method" value="delete" type="submit" class="btn btn-danger" /></form>';
+            })->make(true);
+    }
 }

@@ -1,6 +1,8 @@
 <?php
 //Auth Route
 Auth::routes();
+use App\Notification\RegisterNotification;
+use App\User;
 
 //Clients Route
 Route::get('/users', 'UsersController@index')->name('usersList');
@@ -43,6 +45,7 @@ Route::get('/rooms/create', 'RoomController@create');
 Route::post('/rooms','RoomController@store');
 Route::put('/rooms/update/{id}', 'RoomController@update');
 Route::delete('/rooms/delete/{id}', 'RoomController@destroy');
+Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
 
 //reservations routes
 Route::get('/client', 'ReservationsController@index')->name('reservation.index')->middleware('auth');
@@ -50,3 +53,16 @@ Route::get('/client', 'ReservationsController@index')->name('reservation.index')
 Route::get('/reservations/freeRooms', 'ReservationsController@freeRooms');
 Route::get('/reservations/rooms/{room_id}','ReservationsController@create');
 Route::post('/reservations/store/{id}','ReservationsController@store');
+
+/*Route::get('/client/approved',function(){
+    $user=App\User::find(1)->notify(new Reserved);
+    //Notification::send($user,new Reserved());
+
+ return view('welcome');
+});*/
+
+Route::get('/client/approved',function(){
+$user=Auth::user();
+//dd($user);
+Notification::send($user,new RegisterNotification($user));
+});

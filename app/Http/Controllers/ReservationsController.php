@@ -26,18 +26,19 @@ class ReservationsController extends Controller
     }
     public function index()
     {
-       $reservations = DB::table('room_user')->where('user_id', Auth::user()->id)->get();
+       //$reservations = DB::table('room_user')->where('user_id', Auth::user()->id)->get();
        // $reservations = User::with('user_id')->get();
      /*  $reservations = User::find(1);
        $reservations = DB::table('room_user')->get();
-      // $reservations = User::with('user_id')->get();
-       $reservations = User::find(1);
-       foreach ($reservations->rooms as $room) {
+      // $reservations = User::with('user_id')->get();*/
+       $user = User::find(Auth::user()->id);
+       //dd($user->rooms());
+       /*foreach ($user->rooms as $room) {
         dd($room->pivot->accompany_number,$room->pivot->client_paid_price);
-*/
+       }*/
         return view('reservations.index',
         [
-            'reservations' => $reservations
+            'reservations' => $user->rooms 
         ]);
     }
     public function freeRooms(){

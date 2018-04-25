@@ -2,7 +2,7 @@
 
 namespace App;
 use App\Room;
-
+use App\Notifications\Reserved;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -35,4 +35,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+  //  $user->notify(new Reserved($reservation));
+
 }
