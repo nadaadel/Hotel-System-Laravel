@@ -20,6 +20,9 @@ Route::get('/users/edit/{id}', 'UsersController@edit')->name('usersEdit');
 Route::post('/users/create/{id}', 'UsersController@create')->name('usersCreate');
 Route::put('/users/update/{id}', 'UsersController@update')->name('usersUpdate');
 Route::delete('/users/delete/{id}', 'UsersController@destroy')->name('usersdelete');
+Route::get('/users/approve','UsersController@approve');
+Route::get('/users/data','UsersController@data');
+Route::get('/users/approve/{id}','UsersController@changeapprove');
 
 // managers routes
 Route::get('/managers', 'Admins\Managers\ManagerController@index')->name('managerList')->where('role','superadmin');

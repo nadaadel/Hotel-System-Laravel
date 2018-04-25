@@ -26,6 +26,9 @@
                     </li>  <li>
                         <a href="/rooms"> <i class="menu-icon   fa fa-institution"></i>Manage Rooms</a>
                     </li>
+                    <li>
+                        <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i>Check Users'pending</a>
+                    </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Components</a>
                         <ul class="sub-menu children dropdown-menu">
