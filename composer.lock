@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa095f3d27114d1b421e12525e251688",
-
+    "content-hash": "0d8804c0fbabacc29c56ac9851eaada4",
     "packages": [
         {
             "name": "cybercog/laravel-ban",
@@ -3281,8 +3280,6 @@
             "time": "2016-09-01T10:05:43+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "yajra/laravel-datatables",
             "version": "v1.0.0",
             "source": {
@@ -3509,7 +3506,6 @@
             "time": "2018-03-16T01:32:45+00:00"
         },
         {
->>>>>>> 506cf774b9c9136fb893456cdd93a5bef1217942
             "name": "yajra/laravel-datatables-oracle",
             "version": "v8.4.3",
             "source": {
@@ -3834,7 +3830,7 @@
             ],
             "authors": [
                 {
-                    "name": "Pádraic Brady",
+                    "name": "Padraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },

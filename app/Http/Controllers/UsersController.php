@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Cache;
+use App\Notifications\SendWelcomeMail;
 
 
 
@@ -71,6 +72,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->is_registered=1;
         $user->save();
+        $user->notify(new SendWelcomeMail($user));
 
         return redirect('/users/approve');
 
