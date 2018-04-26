@@ -1,7 +1,7 @@
 
 @extends('admin.index')
 @section('content')
-<form  method="post" action="/reservations/store/{{$room->id}}">
+<form  method="post" action="/client/store/{{$room->id}}">
         {{method_field('POST')}}
         {{csrf_field()}}
         <label>Enter your Accompany Number</label>

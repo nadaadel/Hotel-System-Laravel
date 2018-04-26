@@ -3,7 +3,7 @@
 @section('content')
 <center>
   <h1>My Reservations</h1><br>
-   <a href="#" >
+   <a href="/client/freeRooms" >
    <button class="btn-success">New Reservation</button></a></center>
    <br><table class="table table-striped">
       

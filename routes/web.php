@@ -44,15 +44,15 @@ Route::get('/rooms/edit/{id}', 'RoomController@edit');
 Route::get('/rooms/create', 'RoomController@create');
 Route::post('/rooms','RoomController@store');
 Route::put('/rooms/update/{id}', 'RoomController@update');
-Route::get('/rooms/delete', 'RoomController@destroy');
+Route::get('/rooms/delete/', 'RoomController@destroy');
 Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
 
 //reservations routes
 Route::get('/client', 'ReservationsController@index')->name('reservation.index')->middleware('auth');
 
-Route::get('/reservations/freeRooms', 'ReservationsController@freeRooms');
-Route::get('/reservations/rooms/{room_id}','ReservationsController@create');
-Route::post('/reservations/store/{id}','ReservationsController@store');
+Route::get('/client/freeRooms', 'ReservationsController@freeRooms');
+Route::get('/client/rooms/{room_id}','ReservationsController@create');
+Route::post('/client/store/{id}','ReservationsController@store');
 
 /*Route::get('/client/approved',function(){
     $user=App\User::find(1)->notify(new Reserved);

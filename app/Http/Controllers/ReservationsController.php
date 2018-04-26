@@ -69,6 +69,6 @@ class ReservationsController extends Controller
         'accompany_number' => $request->accompany_number,
         'client_paid_price'=>$request->price
         ]);
-        return redirect('/reservations/freeRooms'); 
+        return redirect('/client/freeRooms'); 
     }
 }
