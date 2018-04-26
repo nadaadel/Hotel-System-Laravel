@@ -1,5 +1,4 @@
 @extends('admin.index')
-
 @section('content')
 <a href={{ URL::to('receptionists/create' )}} >
   <input type="button" class="btn btn-success" value='Create Receptionist '/></a>

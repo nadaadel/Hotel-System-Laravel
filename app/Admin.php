@@ -23,7 +23,7 @@ class Admin extends Authenticatable implements BannableContract
     protected $fillable=['name','password','national_id','email','avatar','created_by'];
 
 
-
+    
     protected $hidden = [
         'password', 'remember_token',
     ];

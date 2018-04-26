@@ -42,6 +42,7 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
     //jwt Api
     public function getJWTIdentifier()
     {
@@ -51,5 +52,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+  //  $user->notify(new Reserved($reservation));
+
 
 }

@@ -1,8 +1,21 @@
 <?php
 //Auth Route
 Auth::routes();
+//use App\Notification\RegisterNotification;
+use App\User;
+
+// Password reset link request routes...
+// Route::get('password/email', 'Auth\PasswordController@getEmail')->name();
+// Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+// // Password reset routes...
+// Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+// Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.request');
 
 
+Route::get('/getrole' , function(){
+    dd(Auth::guard('admin')->user()->getRoleNames()->first());
+});
 
 //Home Route
 Route::get('/', 'HomeController@index');
@@ -12,12 +25,14 @@ Route::get('/reservations/checkout', 'CheckoutController@checkout');
 Route::post('/reservations/payment', 'CheckoutController@payment');
 
 //Clients Route
-
 Route::get('/users', 'UsersController@index')->name('usersList');
+Route::get('/users/create', 'UsersController@create')->name('createUser');
+Route::post('/users/store', 'UsersController@store')->name('storeUser');
+
 Route::get('/users/datatable', 'UsersController@datatable')->name('userslist');
 Route::get('/users/show/{id}', 'UsersController@show')->name('usersShow');
 Route::get('/users/edit/{id}', 'UsersController@edit')->name('usersEdit');
-Route::post('/users/create/{id}', 'UsersController@create')->name('usersCreate');
+Route::get('/users/editprofile/{id}', 'UsersController@editProfile')->name('usersEdit');
 Route::put('/users/update/{id}', 'UsersController@update')->name('usersUpdate');
 Route::delete('/users/delete/{id}', 'UsersController@destroy')->name('usersdelete');
 Route::get('/users/approve','UsersController@approve');
@@ -73,10 +88,25 @@ Route::get('/rooms/edit/{id}', 'RoomController@edit');
 Route::get('/rooms/create', 'RoomController@create');
 Route::post('/rooms','RoomController@store');
 Route::put('/rooms/update/{id}', 'RoomController@update');
-Route::delete('/rooms/delete/{id}', 'RoomController@destroy');
+Route::get('/rooms/delete/', 'RoomController@destroy');
+Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
 
 //reservations routes
-Route::get('/client', 'ReservationsController@index')->name('reservation.index');
-Route::get('/reservations/freeRooms', 'ReservationsController@freeRooms');
-Route::get('/reservations/rooms/{room_id}','ReservationsController@create');
-Route::post('/reservations/store/{id}','ReservationsController@store');
+Route::get('/client', 'ReservationsController@index')->name('reservation.index')->middleware('auth');
+
+Route::get('/client/freeRooms', 'ReservationsController@freeRooms')->middleware('auth');
+Route::get('/client/rooms/{room_id}','ReservationsController@create')->middleware('auth');
+Route::post('/client/store/{id}','ReservationsController@store')->middleware('auth');
+
+/*Route::get('/client/approved',function(){
+    $user=App\User::find(1)->notify(new Reserved);
+    //Notification::send($user,new Reserved());
+
+ return view('welcome');
+});*/
+/*
+Route::get('/client/approved',function(){
+$user=Auth::user();
+//dd($user);
+Notification::send($user,new RegisterNotification($user));
+});*/

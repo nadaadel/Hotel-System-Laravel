@@ -1,12 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use App\Notifications\Reserved;
 
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+
+
 
 class RegisterController extends Controller
 {
@@ -69,7 +74,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // dd($data);
+        Input::file('avatar')->store('public/uploads');
+        $name = Input::file('avatar')->hashName();
+
+        // dd($name);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -77,8 +85,13 @@ class RegisterController extends Controller
             'gender' => $data['gender'],
             'phone' => $data['phone'],
             'country' => $data['country'],
-            'avatar' => $data['avatar'],
+            'avatar' => $name,
         ]);
+        
+        //$user->notify(new Reserved($reservation));
+
     }
+
+    
 }
     

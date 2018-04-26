@@ -15,6 +15,9 @@
 
 <form method="post" action="/rooms">
 {{ csrf_field() }}
+Number :- 
+<input type="number"    name="number" > 
+<br><br>
 Capacity :- 
 <input type="number"    name="capacity" > 
 <br><br>
@@ -29,13 +32,7 @@ Floor Name:-
 
 </select>
 <br>
-Room Creator:-
-<select class="form-control" name="created_by" >
-@foreach ($roles as $role)
-    <option value="{{$role->id}}">{{$role->name}}</option>
-@endforeach
 
-</select>
 
 <br>
 <input type="submit" value="Submit" class="btn btn-primary">

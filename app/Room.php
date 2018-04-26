@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     protected $fillable = [
-        'capacity', 'price', 'number','created_by','floor_id'
+        'capacity', 'price', 'number','admin_id','floor_id',
     ];
     public function floor(){
         return $this->belongsTo(Floor::class);
@@ -18,10 +18,24 @@ class Room extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class,'created_by');
+    public function Admin(){
+        return $this->belongsTo(Admin::class);
     }
 
-    
+    /**
+     *
+     * @param  float  $value
+     * @return float
+     */
+    public function getPriceAttribute($value)
+    {
+        return $value / 100;
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date('M j, Y', strtotime( $value));
+       // date('M j, Y', strtotime( $room->created_at ))
+    }
+
 }
