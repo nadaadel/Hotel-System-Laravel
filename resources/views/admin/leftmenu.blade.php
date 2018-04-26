@@ -6,6 +6,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="./"><img src="{{ asset('images/logo.png') }}" alt="Logo"></a>
+                <a class="navbar-brand hidden" href="./"><img src="{{ asset('images/logo2.png') }}" alt="Logo"></a>
             </div>
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -13,7 +14,30 @@
                         <a href="/"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Manage System</h3>
-     <li>
+
+        @role('manager')
+        <li>
+                <a href="/receptionsts"> <i class="menu-icon fa fa-user"></i>Manage Reception</a>
+        </li>
+        <li>
+                <a href="/users"> <i class="menu-icon   fa fa-child"></i>Manage Clients</a>
+        </li>
+        <li>
+                <a href="/floors"> <i class="menu-icon   fa fa-sitemap"></i>Manage Floors</a>
+        </li>  
+        <li>
+                <a href="/rooms"> <i class="menu-icon   fa fa-institution"></i>Manage Rooms</a>
+        </li>
+        <li>
+                <a href="/"> <i class="menu-icon   fa fa-institution"></i> Clients Pending Approval</a>
+        </li>
+       @endrole
+                    <li>
+                        <a href="/"> <i class="menu-icon fa fa-user-circle-o"></i>Manage Managers</a>
+                    </li>   
+                    <li>
+                        <a href="/"> <i class="menu-icon fa fa-user"></i>Manage Reception</a>
+                     <li>
                         <a href="/managers"> <i class="menu-icon fa fa-user-circle-o"></i>Manage Managers</a>
                     </li>   <li>
                         <a href="/receptionists"> <i class="menu-icon fa fa-user"></i>Manage Reception</a>

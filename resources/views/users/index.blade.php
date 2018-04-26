@@ -1,10 +1,8 @@
 @extends('admin.index')
-@section('content')
-<form action="/users/create" method="GET">
-    @csrf
-    <input type="submit" class="btn btn-success"Value="Create Client">
-</form>
 
+@section('content')
+<a href={{ URL::to('/users/create' )}} >
+  <input type="button" class="btn btn-success" value='Create Client '/></a>
 <br/>
 
 <div class="container">
@@ -22,8 +20,10 @@
                                 <th>Gender</th>
                                 <th>Mobile</th>
                                 <th>Country</th> 
+                                @role('superadmin')  
                                 <th>Created By</th>
-                                <th>Action</th>
+                                @endrole
+                                <th >Action</th>
                                 {{ csrf_field() }}
                             </tr>
                         </thead>
@@ -41,6 +41,7 @@ $(document).ready(function() {
         processing: true,
         serverSide: true,
         ajax: '{{ route('userslist') }}',
+        @role('superadmin')
         columns: [
             {data: 'id', name: 'id'},
             {data: 'name', name: 'name'},
@@ -51,7 +52,17 @@ $(document).ready(function() {
             {data: 'registered_by', name: 'registered_by'},
             {data: 'action', name: 'action', orderable: false, searchable: false},      
         ]
-    
+    @else
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
+            {data: 'gender', name: 'gender'},
+            {data: 'phone', name: 'phone'},
+            {data: 'country', name: 'country'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},      
+        ]
+    @endrole
     });
 });
 </script>
