@@ -1,5 +1,4 @@
-
-@extends('admin.index')
+@extends('layouts.app')
 @section('content')
 <center>
   <h1>Our Free Rooms</h1><br>

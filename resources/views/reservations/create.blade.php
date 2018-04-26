@@ -1,5 +1,5 @@
 
-@extends('admin.index')
+@extends('layouts.app')
 @section('content')
 <form  method="post" action="/client/store/{{$room->id}}">
         {{method_field('POST')}}
@@ -7,7 +7,7 @@
         <label>Enter your Accompany Number</label>
 <input type="number" name="accompany_number" max="{{$room->capacity}}" />
         <br/>
-        <label>Paid Price</label>
+        <label>Paid Price in cents</label>
         <input type="number" name="price" />
         <br/>
         <input type="submit" value="Submit" class="btn btn-primary">

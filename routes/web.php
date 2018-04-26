@@ -50,9 +50,9 @@ Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
 //reservations routes
 Route::get('/client', 'ReservationsController@index')->name('reservation.index')->middleware('auth');
 
-Route::get('/client/freeRooms', 'ReservationsController@freeRooms');
-Route::get('/client/rooms/{room_id}','ReservationsController@create');
-Route::post('/client/store/{id}','ReservationsController@store');
+Route::get('/client/freeRooms', 'ReservationsController@freeRooms')->middleware('auth');
+Route::get('/client/rooms/{room_id}','ReservationsController@create')->middleware('auth');
+Route::post('/client/store/{id}','ReservationsController@store')->middleware('auth');
 
 /*Route::get('/client/approved',function(){
     $user=App\User::find(1)->notify(new Reserved);
