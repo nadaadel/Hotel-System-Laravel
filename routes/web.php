@@ -33,7 +33,9 @@ Route::get('/managers/{id}/edit', 'Admins\Managers\ManagerController@edit')->nam
 Route::put('/managers/{id}', 'Admins\Managers\ManagerController@update')->name('managerUpdate');
 Route::delete('/managers/{id}', 'Admins\Managers\ManagerController@destroy')->name('managerdelete');
 Route::get('datatable', 'Admins\Managers\ManagerController@datatable');
+
 //receptionists routes
+
 Route::get('/receptionists', 'Admins\Receptionists\ReceptionistController@index')->name('receptionistList');
 Route::get('/receptionists/create', 'Admins\Receptionists\ReceptionistController@create')->name('receptionistCreate');
 Route::post('/receptionists', 'Admins\Receptionists\ReceptionistController@store');

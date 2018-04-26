@@ -9,7 +9,7 @@ use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Admin;
-uSE Auth;
+use Auth;
 use yajra\Datatables\Datatables;
 
 class ReceptionistController extends Controller
@@ -49,8 +49,10 @@ class ReceptionistController extends Controller
         ->addColumn('action', function ($receptionists) {
 
             $receptionist=Admin::find($receptionists->id);
+            $manager=Admin::find($receptionists->created_by);
+        
             $loginname=Auth::guard('admin')->user();
-            if(($loginname->name==$receptionists->created_by)||($loginname->hasRole('superadmin'))){
+            if(($loginname->name==$manager->name)||($loginname->hasRole('superadmin'))){
                 $loginname="yes";
             }
             return view('receptionists.action',['id'=>$receptionists->id,'ban'=>$loginname,'receptionist'=>$receptionist]);
@@ -61,10 +63,10 @@ class ReceptionistController extends Controller
         ->addColumn('managername', function ($receptionists) {
                 
           
-            
+            $manager=Admin::find($receptionists->created_by);
             $loginname=Auth::guard('admin')->user();
             if($loginname->hasRole('superadmin')){
-                return view('receptionists.managername',['name'=>$receptionists->created_by]);
+                return view('receptionists.managername',['name'=>  $manager->name]);
             }
             
             
@@ -77,7 +79,7 @@ class ReceptionistController extends Controller
 
     public function create()
        {
-         
+        
          return view('receptionists.create');
        }
    
@@ -99,10 +101,11 @@ class ReceptionistController extends Controller
             'email' => $request->email,
             'national_id' => $request->national_id,
             'password'=>Hash::make($request->password),
-            'created_by'=>$currentlogin->name,
+            'created_by'=>$currentlogin->id,
             'avatar'=>$path,
 
          ]);
+        
          $receptionist->assignRole('receptionist');
          return redirect('receptionists');
         
@@ -110,6 +113,7 @@ class ReceptionistController extends Controller
 
        public function show ($id){
         $receptionist = Admin::where('id', '=', $id)->get()->first();
+        
         
         return view('receptionists.show',[
             
@@ -123,6 +127,7 @@ class ReceptionistController extends Controller
         public function edit($id)
         {
          $receptionist=Admin::find($id);
+        
          
           return view('receptionists.edit',[
             

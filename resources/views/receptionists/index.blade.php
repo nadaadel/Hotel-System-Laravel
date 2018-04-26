@@ -18,7 +18,9 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Created-At</th>
+                                @role('superadmin')
                                 <th>Created By</th>
+                                @endrole
                                 <th >Action</th>
                             </tr>
                         </thead>
@@ -41,7 +43,9 @@ $(document).ready(function() {
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
             {data:'created_at',name:'created_at'},
+            @role('superadmin')
             {data:'managername',name:'managername'}   ,
+            @endrole
             {data: 'action', name: 'action', orderable: false, searchable: false},
           
         ]
