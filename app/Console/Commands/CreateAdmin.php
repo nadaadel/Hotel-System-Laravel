@@ -54,8 +54,7 @@ class CreateAdmin extends Command
             'national_id' => 'null',
             'password' => Hash::make($this->option('password')),
             'email' => $this->option('email'),
-            'avatar' => 'null',
-            'is_ban' => '0'
+            'avatar' => 'public/images/12.jpg',
         ]);
     }
 }

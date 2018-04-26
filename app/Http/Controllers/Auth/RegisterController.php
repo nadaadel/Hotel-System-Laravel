@@ -73,7 +73,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $path = Input::file('avatar')->store('public/uploads');
+        Input::file('avatar')->store('public/uploads');
+        $name = Input::file('avatar')->hashName();
+
+        // dd($name);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -81,7 +84,7 @@ class RegisterController extends Controller
             'gender' => $data['gender'],
             'phone' => $data['phone'],
             'country' => $data['country'],
-            'avatar' => $path,
+            'avatar' => $name,
         ]);
     }
 }

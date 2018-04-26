@@ -81,7 +81,6 @@
                             </div>
                         </div>
                     </div>
-    
                     <div class="col-sm-5">
                         <div class="user-area dropdown float-right">
                            
@@ -94,9 +93,10 @@
                                     @else
                                         <li class="nav-item dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <img width="20px" height="20px" class="user-avatar rounded-circle" src=" {{ Storage::url(Auth::user()->avatar) }}" alt="User Avatar">
-                                                      
+                                                        <img width="20px" height="20px" class="user-avatar rounded-circle" src=" {{ Storage::url('/uploads/'.Auth::user()->avatar) }}" alt="User Avatar">
+                                    
                                                     </a>
+                                         <a href="/users/editprofile/{{ Auth::user()->id}} ">Edit Profile</a>
                                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                                 {{ Auth::user()->name }} <span class="caret"></span>
                                             </a>

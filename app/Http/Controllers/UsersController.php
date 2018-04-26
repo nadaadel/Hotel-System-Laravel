@@ -23,7 +23,14 @@ class UsersController extends Controller
         $countries = Cache::get('countries');
         return view('users.create' , compact('countries'));
     }
-
+ 
+    public function editProfile($id){
+        $countries = Cache::get('countries');
+        $user = User::find($id);
+        // dd($user->avatar);
+        $avatarName = $user->avatar;
+        return view('users.editprofile' ,compact('user' , 'countries' , 'avatarName'));
+     }
     public function datatable(){  
     $user = Auth::guard('admin')->user();
     $hasRole =$user->getRoleNames()->first();
@@ -56,8 +63,10 @@ class UsersController extends Controller
     $user->gender = $request['gender'];
     $user->phone = $request['phone'];
     $user->country = $request['country'];
-    $path = $request->file('avatar')->store('public/uploads');
-    $user->avatar = $path; 
+    // upload image in uploads directory
+    $request->file('avatar')->store('public/uploads');
+    $avatarName = $request->file('avatar')->hashName();
+    $user->avatar = $avatarName; 
     $user->save();
     return redirect('/users');
     }
