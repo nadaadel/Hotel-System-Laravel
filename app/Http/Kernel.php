@@ -60,7 +60,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'forbid-banned-admin' => \Cog\Laravel\Ban\Http\Middleware\ForbidBannedUser::class,
-   
+       
    
     ];
 }

@@ -146,15 +146,15 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+       
         /*
          * Package Service Providers...
          */
         Spatie\Permission\PermissionServiceProvider::class,
-
-
         Yajra\Datatables\DatatablesServiceProvider::class,
         Cog\Laravel\Ban\Providers\BanServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
 
 
       

@@ -52,7 +52,7 @@ class ReceptionistController extends Controller
             $manager=Admin::find($receptionists->created_by);
         
             $loginname=Auth::guard('admin')->user();
-            if(($loginname->name==$manager->name)||($loginname->hasRole('superadmin'))){
+            if(($loginname->id==$manager->id)||($loginname->hasRole('superadmin'))){
                 $loginname="yes";
             }
             return view('receptionists.action',['id'=>$receptionists->id,'ban'=>$loginname,'receptionist'=>$receptionist]);
