@@ -1,73 +1,58 @@
 @extends('admin.index')
 @section('content')
+<form action="/users/create" method="GET">
+    @csrf
+    <input type="submit" class="btn btn-success"Value="Create Client">
+</form>
+
+<br/>
 
 <div class="container">
     <div class="row">
-            <h3 class="col-lg-6">All Clients</h3>  
-            <div class="col-lg-6" style="text-align: right; ">
-                     
-              <form action="/users/create" method="GET">
-                <input  class="btn btn-success text-right" type="submit" value="Create user">
-            </form>
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+                    <table id="myTable" class="table table-hover table-bordered table-striped datatable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Mobile</th>
+                                <th>Country</th> 
+                                <th>Created By</th>
+                                <th>Action</th>
+                                {{ csrf_field() }}
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
+        </div>
     </div>
-    <table class="table table-striped" style="margin-top:19px">
-      <thead>
-        <tr>
-          <th>Client id</th>        
-          <th>Name</th>
-          <th>Email</th>        
-          <th>Approved  By</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      @foreach($users as $user)
-      <tbody>
-        <tr>
-          <td id="pid">#{{$user->id}}</td>        
-          <td><a href="/users/show/{{$user->id}}"> {{$user->name}} </a></td>
-          <td> {{$user->email}} </td>        
-          <td>{{$user->approved_by}}</td>
-          <td> <form action="/users/show/{{$user->id}}" method="get">
-            @csrf
-            <input class="btn btn-primary"type="submit" value="View">
-           </form>
-           </td>
-           <td><form action="/users/edit/{{$user->id}}" method="get">
-             @csrf
-             <input class="btn btn-success"type="submit" value="Edit">
-            </form>
-            </td>
-            <td><form action="/users/delete/{{$user->id}}" method="post" >
-             @csrf
-             {{method_field('DELETE')}}
-             <button id="delete" onClick="return confirm('Are You Sure to Delete This User ?');" 
-             class="btn btn-danger" >Delete</button>
-            </form>
-            </td>
-        </tr>
-      </tbody>
-      @endforeach
-    </table>
-    <div style="text-align: -webkit-center;" class="pagination" > 
-        {{ $users->links()}}
-      </div>
-  </div>
-  <script>
-        myfunc = function(){
-       result =confirm("Are You Sure to Delete Post ?");
-        if(result){
-         return true;
-        } 
-       }
- 
-       // $("#pid").click(function(){
-       //  result =confirm("Are You Sure to Delete Post ?");
-       // if(result){
-       //    console.log('yes a baba :D');
-       //  } 
- 
-       // })
+</div>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#myTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('userslist') }}',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
+            {data: 'gender', name: 'gender'},
+            {data: 'phone', name: 'phone'},
+            {data: 'country', name: 'country'},
+            {data: 'registered_by', name: 'registered_by'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},      
+        ]
     
-     </script>
+    });
+});
+</script>
 @endsection

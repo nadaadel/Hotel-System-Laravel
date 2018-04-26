@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Floor;
+use App\Admin;
 use yajra\Datatables\Datatables;
 
 class FloorsController extends Controller
@@ -21,34 +22,28 @@ class FloorsController extends Controller
         Floor::create([
             'number' => $floor_number,
             'name' => $request->name,
-            'admin_id'=>Auth::user()->id,
+            'admin_id'=>Auth::guard('admin')->user()->id,
         ]);
        return redirect('floors'); 
     }
 
     public function datatable()
     {
-        $floors = Floor::select(['id', 'name', 'number', 'admin_id']);
+        $floors = Floor::with('admin')->select('floors.*');
         return Datatables::of($floors)
         ->addColumn('action', function ($floor) {
-            return '<a href="/floors/edit/'. $floor->id.'"  type="button" class="btn btn-warning" >Edit</a>
-            <form action="{{ URL::to(\'/floors/delete/\'. $floor->id ) }}" 
-            onsubmit="return confirm(\'Do you really want to delete?\');" 
-            method="post" ><input name="_method" value="delete" type="submit" 
-            class="btn btn-danger" />
-    </form>';
+            if($floor->admin_id==Auth::guard('admin')->user()->id)
+            return view('floors.admin-action',['id'=>$floor->id]);
+            else 
+            return 'You have no actions';
         })
         ->make(true);
-        /*
-        return DataTables::eloquent($floors)
-        ->addColumn('link', '<a href="#">Html Column</a>')
-        ->addColumn('action', 'path.to.view')
-        ->rawColumns(['link', 'action'])
-        ->toJson();*/
     }
+    
     public function index (){ 
         return view('floors.index');
      }
+
 
     public function edit($id){
         $floor=Floor::find($id);
