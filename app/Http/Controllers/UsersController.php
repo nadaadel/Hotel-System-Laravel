@@ -8,6 +8,7 @@ use App\Admin;
 use App\Http\Requests\StoreUserRequest;
 use yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Cache;
+use App\Notifications\SendWelcomeMail;
 use Auth;
 
 
@@ -100,6 +101,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->is_registered=1;
         $user->save();
+        $user->notify(new SendWelcomeMail($user));
 
         return redirect('/users/approve');
 
