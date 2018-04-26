@@ -57,8 +57,9 @@ class ReservationsController extends Controller
         ]);
         $room=Room::find($id);
         if($room->is_reserved){
-            return 'hh';
+            return 'Error';
         }     
+        $room->is_reserved=1;
         $room->save();
         $user=Auth::user();
         $user->rooms()->attach($user->id,[
