@@ -13,17 +13,22 @@ use Illuminate\Http\Request;
 |
 */
 
+
+
+Route::post('auth/login', 'Api\RoomController@login');
+
 Route::group([
+    'prefix' => 'auth',
+    'middleware'=>'jwt.auth'
+    
+], function () {
 
- 
-    'prefix' => 'auth'
+   
+    Route::post('logout', 'Api\RoomController@logout');
+    Route::post('refresh', 'Api\RoomController@refresh');
+    Route::post('room', 'Api\RoomController@index');
+   
 
-], function ($router) {
 
-    Route::post('login', 'ApiController@login');
-    Route::post('logout', 'ApiController@logout');
-    Route::post('refresh', 'ApiController@refresh');
-    Route::post('me', 'ApiController@me');
-    Route::post('payload','ApiController@payload');
-
+   
 });
