@@ -1,7 +1,7 @@
 <?php
 //Auth Route
 Auth::routes();
-use App\Notification\RegisterNotification;
+//use App\Notification\RegisterNotification;
 use App\User;
 
 //Clients Route
@@ -44,7 +44,7 @@ Route::get('/rooms/edit/{id}', 'RoomController@edit');
 Route::get('/rooms/create', 'RoomController@create');
 Route::post('/rooms','RoomController@store');
 Route::put('/rooms/update/{id}', 'RoomController@update');
-Route::delete('/rooms/delete/{id}', 'RoomController@destroy');
+Route::get('/rooms/delete', 'RoomController@destroy');
 Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
 
 //reservations routes
@@ -60,9 +60,9 @@ Route::post('/reservations/store/{id}','ReservationsController@store');
 
  return view('welcome');
 });*/
-
+/*
 Route::get('/client/approved',function(){
 $user=Auth::user();
 //dd($user);
 Notification::send($user,new RegisterNotification($user));
-});
+});*/

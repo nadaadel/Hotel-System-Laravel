@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <meta name="_token" content="{{csrf_token()}}" />
 </head>
 <body>
     <div id="app">

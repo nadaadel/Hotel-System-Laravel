@@ -2,6 +2,8 @@
 @extends('admin.index')
 
 @section('content')
+<head>    <meta name="_token" content="{{csrf_token()}}" />
+</head>
 <a href={{ URL::to('rooms/create' )}} >
   <input type="button" class="btn btn-success" value='Create a New Room '/></a>
 <br/>
@@ -17,7 +19,7 @@
                             <tr>
                                 <th>Number</th>
                                 <th>Capacity</th>
-                                <th>Price</th>
+                                <th>Price in Dollar</th>
                                 <th> Floor Name</th>
                                 <th>Created At</th>
                                 <th>Created By</th>
@@ -33,6 +35,43 @@
 </div>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<script>
+$(document).on('click','.deletebtn',function(){
+        var roomID = $(this).attr("room-id");
+        var btn=$(this);
+        var resp = confirm("Are you sure?");
+        if (resp == true) {
+            console.log(roomID);
+            $.ajax({
+                url: '/rooms/delete/',
+                type: 'get',
+                cache: 'false',
+    contentType: 'false',
+    processData: 'false',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                data: {roomID: roomID},
+                success: function (response) {
+                    console.log(response);
+                    //datatable.ajax.reload();
+                     
+                }
+            });
+
+        }
+       
+       });
+
+
+</script>
+
+@if (session('alert'))
+    <div class="alert alert-success">
+        {{ session('alert') }}
+    </div>
+@endif
+
 <script type="text/javascript">
 $(document).ready(function() {
     $('#myTable').DataTable({
@@ -50,5 +89,6 @@ $(document).ready(function() {
         ]
     });
 });
+
 </script>
 @endsection

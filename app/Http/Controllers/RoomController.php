@@ -81,14 +81,18 @@ class RoomController extends Controller
         return redirect()->route('rooms.index');
      }
 
-     public function destroy($id)
+     public function destroy(Request $request)
      {
-         $room = Room::find( $id );
- 
-         $room->delete();
-         
-         
-         return redirect()->route('rooms.index');
+        //dd($request);
+         $room = Room::find( $request->roomID );
+        // dd($room);
+         if ($room->is_reserved ==0){
+            $room->delete();
+            return response()->json(['response' => "success"]);
+         }
+         else{
+            return response()->json(['response' => "failed"]);
+               }
      }
  
      public function datatable()
@@ -97,8 +101,7 @@ class RoomController extends Controller
         return Datatables::of($rooms)
             ->addColumn('action', function ($room) {
                 return '<a href="/rooms/edit/'. $room->id.'"  type="button" class="btn btn-warning" >Edit</a>
-                <form action="rooms/delete/'.$room->id.'" 
-                onsubmit="return confirm(\'Do you really want to delete?\');" method="post" >'.csrf_field().method_field("Delete").'<input name="_method" value="delete" type="submit" class="btn btn-danger" /></form>';
+                <a class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash deletebtn" room-id="'.$room->id.'" {{ csrf_token() }}> Delete </i> </a>;  ';
             })->make(true);
     }
 }
