@@ -20,10 +20,10 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
-    Route::post('payload','AuthController@payload');
+    Route::post('login', 'ApiController@login');
+    Route::post('logout', 'ApiController@logout');
+    Route::post('refresh', 'ApiController@refresh');
+    Route::post('me', 'ApiController@me');
+    Route::post('payload','ApiController@payload');
 
 });
