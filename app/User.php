@@ -7,9 +7,12 @@ use App\Payment;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+use Tymon\JWTAuth\Contracts\JWTSubject ;
+
+class User extends Authenticatable implements JWTSubject
+
 {
-    use Notifiable;
+    use  Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password' , 'gender' , 'phone' , 'country' , 'avatar' ,
+        'name', 'email', 'password' , 'gender' , 'phone' , 'country' , 'avatar' ,'registered_by'
     ];
 
     protected $attributes = [ 'is_registered' => 0];
@@ -39,6 +42,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //jwt Api
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
   //  $user->notify(new Reserved($reservation));
+
 
 }

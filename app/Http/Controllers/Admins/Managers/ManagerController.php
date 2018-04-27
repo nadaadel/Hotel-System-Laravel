@@ -40,7 +40,7 @@ class ManagerController extends Controller
     public function datatable()
     {
         $manager =Admin::role('manager')->select(['id', 'name', 'email']);
-
+        dd($manager);
         return Datatables::of($manager)
         ->addColumn('action', function ($manager) {
             
@@ -53,12 +53,15 @@ class ManagerController extends Controller
 
     public function create()
        {
+
          
          return view('managers.create');
        }
    
        public function store(StoreAdminRequest $request)
        {
+        $manager =Admin::role('manager')->select(['id', 'name', 'email']);
+   
         
         $file=$request->file('photo');
        

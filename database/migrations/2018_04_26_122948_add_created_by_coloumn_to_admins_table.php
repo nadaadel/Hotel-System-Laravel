@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCreatedByColumnToAdminsTable extends Migration
+class AddCreatedByColoumnToAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,14 @@ class AddCreatedByColumnToAdminsTable extends Migration
     public function up()
     {
         Schema::table('admins', function (Blueprint $table) {
-            $table->string('created_by')->nullable();
+            $table->integer('created_by')->nullable();
         });
     }
     
     public function down()
     {
         Schema::table('admins', function (Blueprint $table) {
-            $table->dropColumn('created_by');
+            $table->dropColumn('banned_at');
         });
     }
 }
