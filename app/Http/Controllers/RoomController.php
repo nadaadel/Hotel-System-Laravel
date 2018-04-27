@@ -7,6 +7,8 @@ use App\User;
 use App\Admin;
 use App\Room;
 use App\Floor;
+use Auth;
+use yajra\Datatables\Datatables;
 
 class RoomController extends Controller
 {
@@ -18,20 +20,13 @@ class RoomController extends Controller
             'rooms' => $rooms
         ]);
     }
-    
-    public function generateRoomNumber(){
-        $number=mt_rand(1000,9999);
-        if($this->RoomNumberExists($number)){
-            return generateRoomNumber();
-        }
-        return $number;
-    }
-    public function RoomNumberExists($number){
-        return Room::where('number',$number)->exists();
-    }
-    
+  
     public function create()
     {
+
+        $roles = Admin::find(1)->where(Auth::guard('admin')->user()->id);
+   
+
         $admin = Admin::all();
         $floors = Floor::all();
         $rooms = Room::all();
@@ -43,13 +38,13 @@ class RoomController extends Controller
 
     public function store(StoreRoomRequest $request)
     {
-        
         Room::create([
             'capacity' => $request->capacity,
             'price' => $request->price,
-            'number' => $this->generateRoomNumber(),
+            //'number' => $this->generateRoomNumber(),
+            'number' => $request->number,
             'floor_id' => $request->floor_id,
-            'created_by'=>$request->created_by,
+            'admin_id'=>Auth::guard('admin')->user()->id,
         ]);
         
        return redirect(route('rooms.index')); 
@@ -60,7 +55,7 @@ class RoomController extends Controller
     public function edit($id)
     {
         $floors = Floor::all();
-        $roles = Role::all();
+        $roles = Admin::all();
         if($id != " "){
            $room = Room::find($id);
            if ( $room){
@@ -73,29 +68,40 @@ class RoomController extends Controller
     {
      
         $users = User::all();
-        $roles = Role::all();
+        $roles = Admin::all();
         $room = Room::find($id);
 
         $room->capacity= $request->input('capacity');
+        $room->number = $request->input('number');
         $room->price = $request->input('price');
         $room->floor_id=$request->input('floor_id');
-        $room->created_by=$request->input('created_by');
-
         $room->save();
 
 
         return redirect()->route('rooms.index');
      }
 
-     public function destroy($id)
+     public function destroy(Request $request)
      {
-         $room = Room::find( $id );
- 
-         $room->delete();
-         
-         
-         return redirect()->route('rooms.index');
+        //dd($request);
+         $room = Room::find( $request->roomID );
+        // dd($room);
+         if ($room->is_reserved ==0){
+            $room->delete();
+            return response()->json(['response' => "success"]);
+         }
+         else{
+            return response()->json(['response' => "failed"]);
+               }
      }
  
- 
+     public function datatable()
+    {
+        $rooms = Room::with('admin','floor')->select('rooms.*');
+        return Datatables::of($rooms)
+            ->addColumn('action', function ($room) {
+                return '<a href="/rooms/edit/'. $room->id.'"  type="button" class="btn btn-warning" >Edit</a>
+                <a class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash deletebtn" room-id="'.$room->id.'" {{ csrf_token() }}> Delete </i> </a>  ';
+            })->make(true);
+    }
 }

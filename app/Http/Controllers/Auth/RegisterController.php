@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use App\Notifications\Reserved;
 
 use App\User;
 use App\Http\Controllers\Controller;
@@ -82,6 +83,11 @@ class RegisterController extends Controller
             'country' => $data['country'],
             'avatar' => $name,
         ]);
+        
+        //$user->notify(new Reserved($reservation));
+
     }
+
+    
 }
     

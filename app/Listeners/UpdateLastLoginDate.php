@@ -5,7 +5,7 @@ namespace App\Listeners;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Carbon\Carbon;
-use App\Auth;
+use Auth;
 
 class UpdateLastLoginDate
 {
@@ -29,7 +29,7 @@ class UpdateLastLoginDate
     {
         
         $user = $event->user;
-        if($user == Auth::user()){
+        if($user==Auth::user()){
         $user->last_logged = Carbon::now();
         $user->save();
         }
