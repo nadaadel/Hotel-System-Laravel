@@ -60,8 +60,6 @@ class RegisterController extends Controller
             'phone' => 'required',
             'country' => 'required',
             'avatar' => 'required',
-            
-
         ]);
     }
 
@@ -75,8 +73,6 @@ class RegisterController extends Controller
     {
         Input::file('avatar')->store('public/uploads');
         $name = Input::file('avatar')->hashName();
-
-        // dd($name);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
