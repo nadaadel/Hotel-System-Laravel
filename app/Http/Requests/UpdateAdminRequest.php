@@ -29,7 +29,7 @@ class UpdateAdminRequest extends FormRequest
             'email' => 'required|email|unique:admins,email,'.$request->id,
             'national_id'=>'required|unique:admins,national_id,'.$request->id,
             'password'=>'required|string|min:6',
-            'photo'=>'image|mimes:jpg,png',
+            'photo'=>'image|mimes:jpeg,jpg',
         
         ];
     }

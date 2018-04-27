@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Listeners;
-
+//use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+
 use Carbon\Carbon;
-use App\Auth;
+
+
+
 class UpdateLastLoginDate
 {
     /**
@@ -26,6 +30,7 @@ class UpdateLastLoginDate
      */
     public function handle($event)
     {
+        
         $user = $event->user;
         if($user==Auth::user()){
         $user->last_logged = Carbon::now();

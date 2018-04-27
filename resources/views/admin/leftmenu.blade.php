@@ -13,52 +13,44 @@
                         <a href="/"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Manage System</h3>
+<<<<<<< HEAD
              
+=======
+     //functionality of left menu
+        @role('spueradmin') 
+>>>>>>> d68f5dddd9cff28091942efc4d2c9f8c9f38707c
         <li>
             <a href="/managers"> <i class="menu-icon fa fa-user"></i>Manage Managers</a>
         </li>
+        @endrole
+        @role('manager|superadmin') 
+     
         <li>
-            <a href="/receptionsts"> <i class="menu-icon fa fa-user"></i>Manage Receptionsts</a>
+            <a href="/receptionists"> <i class="menu-icon fa fa-user"></i>Manage Receptionsts</a>
         </li>
-        <li>
-                <a href="/users"> <i class="menu-icon   fa fa-child"></i>Manage Clients</a>
-        </li>
+       
         <li>
                 <a href="/floors"> <i class="menu-icon   fa fa-sitemap"></i>Manage Floors</a>
         </li>  
         <li>
                 <a href="/rooms"> <i class="menu-icon   fa fa-institution"></i>Manage Rooms</a>
         </li>
-        <li>
-                <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i> Clients Pending Approval</a>
-        </li>
-       
-        <li>
-                <a href="/receptionists"> <i class="menu-icon fa fa-user"></i>Manage Receptionsts</a>
-        </li>
+        @endrole
+        @role('receptionist|superadmin|manager') 
         <li>
                 <a href="/users"> <i class="menu-icon   fa fa-child"></i>Manage Clients</a>
         </li>
-        <li>
-                <a href="/floors"> <i class="menu-icon   fa fa-sitemap"></i>Manage Floors</a>
-        </li>  
-        <li>
-                <a href="/rooms"> <i class="menu-icon   fa fa-institution"></i>Manage Rooms</a>
-        </li>
+       
         <li>
                 <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i> Clients Pending Approval</a>
         </li>
-       
-        <li>
-            <a href="/users"> <i class="menu-icon   fa fa-child"></i>My Clients</a>
-        </li>
-        <li>
-            <a href="/users/reservations"> <i class="menu-icon fa fa-user"></i>Clients Reservation</a>
-        </li>
-        <li>
-            <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i>Clients Pending Approval</a>
-        </li>
-        
+      @endrole
+ 
+     
+      
+    
+
+   
                       
 {{--                   
                     <li class="menu-item-has-children dropdown">

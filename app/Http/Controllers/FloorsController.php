@@ -6,10 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Floor;
 use App\Admin;
+use App\Room;
 use yajra\Datatables\Datatables;
 
 class FloorsController extends Controller
 {
+    public function __construct(){
+
+        $this->middleware('auth:admin');
+    }
 
     public function create (){
         return view('floors.create',['floor_number'=>$this->generateFloorNumber()]); 
@@ -19,23 +24,27 @@ class FloorsController extends Controller
         $request->validate([
             'name'=>'required|min:3',
         ]);
+        $user=Auth::guard('admin')->user();
+        if($user->hasRole('superadmin')||$user->hasRole('manager')){
         Floor::create([
             'number' => $floor_number,
             'name' => $request->name,
-            'admin_id'=>Auth::guard('admin')->user()->id,
+            'admin_id'=>$user->id,
         ]);
+        }
        return redirect('floors'); 
     }
 
     public function datatable()
-    {
+    {        
         $floors = Floor::with('admin')->select('floors.*');
         return Datatables::of($floors)
         ->addColumn('action', function ($floor) {
-            if($floor->admin_id==Auth::guard('admin')->user()->id)
+            $user=Auth::guard('admin')->user();
+            if($floor->admin_id==$user->id || $user->hasRole('superadmin'))   
             return view('floors.admin-action',['id'=>$floor->id]);
             else 
-            return 'You have no actions';
+            return 'You have no Permissions on this';
         })
         ->make(true);
     }
@@ -62,8 +71,18 @@ class FloorsController extends Controller
 
     public function destroy($id){
         $floor=Floor::find($id);
-        $floor->delete();
-        return redirect('floors'); 
+        $rooms=Room::where('floor_id',$id);
+        if($rooms->count() == 0)
+        {
+            $floor->delete();
+            return response()->json(['response' => "success"]);
+        }
+        else
+        {
+            $error='you can\'t delete floor number'.$floor->number.', it has rooms assigned to';
+            return response()->json(['response' => $error]);
+        }
+        //return redirect('floors',['error'=>$error]); 
     }
     
     function generateFloorNumber() {

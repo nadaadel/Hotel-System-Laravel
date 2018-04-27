@@ -4,14 +4,12 @@ Auth::routes();
 //use App\Notification\RegisterNotification;
 use App\User;
 
-// Password reset link request routes...
-// Route::get('password/email', 'Auth\PasswordController@getEmail')->name();
-// Route::post('password/email', 'Auth\PasswordController@postEmail');
+Route::post('/admin/login/password/email','Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+Route::get('/admin/login/password/reset','Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::post('/admin/login/password/reset','Auth\AdminResetPasswordController@reset');
+Route::get('/admin/login/password/reset/{token}','Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 
-// // Password reset routes...
-// Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
-// Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.request');
-
+ 
 
 Route::get('/getrole' , function(){
     dd(Auth::guard('admin')->user()->getRoleNames()->first());
@@ -48,7 +46,9 @@ Route::get('/managers/{id}/edit', 'Admins\Managers\ManagerController@edit')->nam
 Route::put('/managers/{id}', 'Admins\Managers\ManagerController@update')->name('managerUpdate');
 Route::delete('/managers/{id}', 'Admins\Managers\ManagerController@destroy')->name('managerdelete');
 Route::get('datatable', 'Admins\Managers\ManagerController@datatable');
+
 //receptionists routes
+
 Route::get('/receptionists', 'Admins\Receptionists\ReceptionistController@index')->name('receptionistList');
 Route::get('/receptionists/create', 'Admins\Receptionists\ReceptionistController@create')->name('receptionistCreate');
 Route::post('/receptionists', 'Admins\Receptionists\ReceptionistController@store');
@@ -67,17 +67,18 @@ Route::get('/receptionists/{id}/unban', 'Admins\Receptionists\ReceptionistContro
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
-    Route::get('/', 'Admins\AdminController@index')->middleware('forbid-banned-admin')->name('admin.dashboard');
+    Route::get('/', 'Admins\AdminController@index')->name('admin.dashboard');
 
 });
 
 //floors 
+Route::delete('/floors/{id}','FloorsController@destroy');
 Route::get('/floors', 'FloorsController@index');
 Route::get('/floors/create', 'FloorsController@create');
 Route::post('/floors/store/{floor_number}', 'FloorsController@store');
 Route::get('/floors/edit/{id}', 'FloorsController@edit');
 Route::put('/floors/update/{id}', 'FloorsController@update');
-Route::delete('floors/delete/{id}','FloorsController@destroy');
+
 Route::get('floors/datatable', 'FloorsController@datatable')->name('floors');
 
 //Managing Rooms Routes
@@ -108,3 +109,6 @@ $user=Auth::user();
 //dd($user);
 Notification::send($user,new RegisterNotification($user));
 });*/
+
+
+ 
