@@ -26,60 +26,34 @@ class ReservationsController extends Controller
     }
     public function index()
     {
+       $users = User::find(Auth::user()->id);
        $user = User::find(Auth::user()->id);
-   
         return view('reservations.index',
         [
-            'reservations' => $user->rooms 
+            'reservations' => $users->rooms ,
+            'user'=>$user,
         ]);
     }
 
     public function userReservations()
     {
         $users = User::all();
-        //dd($user->rooms());
-        //return view('reservations.reservations')->with('reservations',$users);
-
-
         $role=Auth::guard('admin')->user();
         
         if($role->hasRole('superadmin')){
-        
             $users = User::all();
             return view('reservations.reservations')->with('reservations',$users);
         }
 
         elseif ($role->hasRole('receptionist'))
             {
-                $users = User::all()->where('registered_by',$role->id);
-               // $users=User::all()->where('registered_by',$role->id);
-                //$users = User::find(Auth::user())->where('registered_by',$role->id);
-               //dd($users);
-                return view('reservations.reservations')->with('reservations',$users);
-                
+                $users = User::all()->where('registered_by',$role->id); 
+                return view('reservations.reservations')->with('reservations',$users); 
             }
             else{
                 dd('not allowed, you are not admin or receptionist');
            }         
-/*
-            $user = Auth::user(); 
-            if($user->hasRole(['admin']))
-            {
-            $reservations = Reservation::all();
-            
-            }
-            elseif ($user->hasRole(['receptionist']))
-            {
-            
-                $clients=Client::where('approved_by',$user->id);
-                foreach($clients as $client){
-                    $ids=[];
-                    array_push($ids,Client::select('id'));
-                }
-                $reservations = Reservation::whereIn('client_id',$ids);
-            }
-            return Datatables::of($reservations) ->make(true); 
-       */
+
     }
     
 

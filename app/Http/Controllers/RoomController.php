@@ -82,17 +82,19 @@ class RoomController extends Controller
         return redirect()->route('rooms.index');
      }
 
-     public function destroy(Request $request)
+     public function destroy($id)
      {
         //dd($request);
-         $room = Room::find( $request->roomID );
+         $room = Room::find($id);
         // dd($room);
          if ($room->is_reserved ==0){
             $room->delete();
             return response()->json(['response' => "success"]);
          }
          else{
-            return response()->json(['response' => "failed"]);
+            return response()->json(['response' => "the room is reserved"]);
+           
+            
                }
      }
  
@@ -106,14 +108,19 @@ class RoomController extends Controller
                 <i class="glyphicon glyphicon-trash deletebtn" room-id="'.$room->id.'" {{ csrf_token() }}> Delete </i> </a>  ';
             })*/
             
+
             ->addColumn('action', function ($room) {
-                if($room->admin_id==Auth::guard('admin')->user()->id)
-                return '<a href="/rooms/edit/'. $room->id.'"  type="button" class="btn btn-warning" >Edit</a>
-                <a class="btn btn-xs btn-danger">
-                <i class="glyphicon glyphicon-trash deletebtn" room-id="'.$room->id.'" {{ csrf_token() }}> Delete </i> </a>  ';
-                else 
-                return 'You have no actions';
-            })
-            ->make(true);
+               
+
+            
+               
+            $login=Auth::guard('admin')->user();
+            if(($login->id==$room->admin_id)||($login->hasRole('superadmin'))){
+                $login="yes";
+            }
+            return view('rooms.action',['id'=>$room->id,'flag'=>$login]);
+           })->make(true);
+               
+         
     }
 }

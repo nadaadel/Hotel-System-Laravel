@@ -7,7 +7,7 @@
 <a href={{ URL::to('rooms/create' )}} >
   <input type="button" class="btn btn-success" value='Create a New Room '/></a>
 <br/>
-
+<span id='my-role' role="{{Auth::guard('admin')->user()->getRoleNames()->first()}}"></span>
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -22,11 +22,12 @@
                                 <th>Price in Dollar</th>
                                 <th> Floor Name</th>
                                 <th>Created At</th>
-                             
-                                <th>Created By</th>
-                            
                                 <th >Action</th>
                                 {{ csrf_field() }}
+
+                                @if(Auth::guard('admin')->user()->hasRole('superadmin'))
+                                <th>Created By</th>
+                            @endif
                             </tr>
                         </thead>
                     </table>
@@ -45,20 +46,19 @@ $(document).on('click','.deletebtn',function(){
         if (resp == true) {
             console.log(roomID);
             $.ajax({
-                url: '/rooms/delete/',
-                type: 'get',
-                cache: 'false',
-    contentType: 'false',
-    processData: 'false',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  },
-                data: {roomID: roomID},
+                url: 'rooms/delete/'+roomID,
+                type: 'post',
+                data: {
+                    '_token':'{{csrf_token()}}',
+                    '_method':'DELETE',
+                },
                 success: function (response) {
                     console.log(response);
-                    $('#my-table').DataTable().ajax.reload();
-
-                     
+                    if(response.response=='success'){
+                    $('#myTable').DataTable().ajax.reload();  
+                    }else{
+                        alert(response.response);
+                    }
                 }
             });
 
@@ -77,6 +77,8 @@ $(document).on('click','.deletebtn',function(){
 
 <script type="text/javascript">
 $(document).ready(function() {
+    var role = $('#my-role').attr("role");
+    if(role=='superadmin'){
     $('#myTable').DataTable({
         processing: true,
         serverSide: true,
@@ -90,7 +92,24 @@ $(document).ready(function() {
             {data: 'admin.name', name: 'admin.name'},
             {data: 'action', name: 'action', orderable: false, searchable: false},      
         ]
+        
     });
+    }
+    else{
+        $('#myTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('rooms') }}',
+        columns: [
+            {data: 'number', name: 'number'},
+            {data: 'capacity', name: 'capacity'},
+            {data: 'price', name: 'price'},
+            {data: 'floor.name', name: 'floor.name'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},      
+        ]
+        });
+    }
 });
 
 </script>
