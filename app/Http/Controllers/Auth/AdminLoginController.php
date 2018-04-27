@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use Auth;
+use App\Admin;
 
 class AdminLoginController extends Controller
 {
@@ -27,6 +28,7 @@ class AdminLoginController extends Controller
       // Attempt to log the user in
       if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
         // if successful, then redirect to their intended location
+        
         return redirect()->intended(route('admin.dashboard'));
       } 
       // if unsuccessful, then redirect back to the login with the form data
