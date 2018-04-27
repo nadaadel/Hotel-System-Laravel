@@ -7,12 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Room;
 use DB;
-<<<<<<< HEAD
 use App\Admin;
-=======
 use App\Rules\RoomCapacityRule;
 //use Auth;
->>>>>>> d68f5dddd9cff28091942efc4d2c9f8c9f38707c
 
 
 class ReservationsController extends Controller
