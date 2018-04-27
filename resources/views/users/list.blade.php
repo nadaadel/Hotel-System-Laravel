@@ -22,7 +22,9 @@
                                 <th>Gender</th>
                                 <th>Mobile</th>
                                 <th>Country</th> 
+                            @role('superadmin')
                                 <th>Created By</th>
+                            @endrole
                                 <th>Action</th>
                                 {{ csrf_field() }}
                             </tr>
@@ -48,7 +50,12 @@ $(document).ready(function() {
             {data: 'gender', name: 'gender'},
             {data: 'phone', name: 'phone'},
             {data: 'country', name: 'country'},
-            {data: 'registered_by', name: 'registered_by'},
+        @role('superadmin')
+
+            {data: 'managername', name: 'managername'},
+            
+        @endrole
+
             {data: 'action', name: 'action', orderable: false, searchable: false},      
         ]
     

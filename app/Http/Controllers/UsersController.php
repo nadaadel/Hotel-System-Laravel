@@ -14,6 +14,12 @@ use Auth;
 
 class UsersController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
 	public function index(){
     $users = User::paginate(4);
     return view('users.list' ,compact('users'));
@@ -28,20 +34,31 @@ class UsersController extends Controller
     public function editProfile($id){
         $countries = Cache::get('countries');
         $user = User::find($id);
-        // dd($user->avatar);
         $avatarName = $user->avatar;
         return view('users.editprofile' ,compact('user' , 'countries' , 'avatarName'));
      }
-    public function datatable(){  
-    $user = Auth::guard('admin')->user();
-    $hasRole =$user->getRoleNames()->first();
-    $users = User::select(['id','name','email' , 'phone', 'country' ,'gender','registered_by']);
     
-    // if($hasRole == "superadmin"){
-        return Datatables::of($users)->addColumn('action' , function($user){
-            return '<a href="/users/edit/'. $user->id.'"  type="button" class="btn btn-warning" >Edit</a>
-            <form action="/users/delete/'.$user->id.'" 
-            onsubmit="return confirm(\'Do you really want to delete?\');" method="post" >'.csrf_field().method_field("Delete").'<input name="_method" value="delete" type="submit" class="btn btn-danger" /></form>';
+    public function datatable(){  
+
+
+        $users = User::select(['id','name','email' , 'phone', 'country' ,'gender','registered_by']);
+        return Datatables::of($users)->addColumn('action' , function($users){
+            $paction = "no";            
+            $currentRole=Auth::guard('admin')->user();
+            if($currentRole->id == $users->registered_by ||($currentRole->hasRole('superadmin'))){
+               $paction="yes";
+            }
+            //find the manager who created the client
+            return view('users.action' , ['id' => $users->id, 'actions' => $paction]);
+
+        })->addColumn('managername', function ($users) {
+
+            $manager=Admin::find($users->registered_by);
+             $loginname=Auth::guard('admin')->user();
+             if($loginname->hasRole('superadmin')){
+                return view('users.managername',['name'=> $manager->name]);
+            }
+             
         })->make(true);
     
     }

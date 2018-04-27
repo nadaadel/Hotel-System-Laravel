@@ -9,21 +9,24 @@ Route::get('/admin/login/password/reset','Auth\AdminForgotPasswordController@sho
 Route::post('/admin/login/password/reset','Auth\AdminResetPasswordController@reset');
 Route::get('/admin/login/password/reset/{token}','Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 
- 
-
 Route::get('/getrole' , function(){
     dd(Auth::guard('admin')->user()->getRoleNames()->first());
 });
 
+
 //Home Route
-Route::get('/', 'HomeController@index');
+Route::get('/', function(){
+    return view('welcome');
+});
+Route::get('/home', 'HomeController@index');
+Route::get('/adminpanel', 'HomeController@showPanel');
 
 //Payment Route
 Route::get('/reservations/checkout', 'CheckoutController@checkout');
 Route::post('/reservations/payment', 'CheckoutController@payment');
 
 //Clients Route
-Route::get('/users', 'UsersController@index')->name('usersList');
+Route::get('/users', 'UsersController@index')->name('usersList')->where('role','superadmin');
 Route::get('/users/create', 'UsersController@create')->name('createUser');
 Route::post('/users/store', 'UsersController@store')->name('storeUser');
 
