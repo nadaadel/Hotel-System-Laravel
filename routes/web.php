@@ -4,7 +4,12 @@ Auth::routes();
 //use App\Notification\RegisterNotification;
 use App\User;
 
+Route::post('/admin/login/password/email','Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+Route::get('/admin/login/password/reset','Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::post('/admin/login/password/reset','Auth\AdminResetPasswordController@reset');
+Route::get('/admin/login/password/reset/{token}','Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 
+ 
 
 Route::get('/getrole' , function(){
     dd(Auth::guard('admin')->user()->getRoleNames()->first());
@@ -104,10 +109,5 @@ $user=Auth::user();
 Notification::send($user,new RegisterNotification($user));
 });*/
 
-//resetpassword
- Route::post('/password/email','Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
- Route::get('/password/reset','Auth\AdminForgotPasswordController@showResetLinkEmail')->name('admin.password.request');
- Route::post('/password/reset','Auth\AdminResetPasswordController@reset');
- Route::get('/password/reset/{token}','Auth\AdminResetPasswordController@showRestForm')->name('admin.password.rest');
 
  

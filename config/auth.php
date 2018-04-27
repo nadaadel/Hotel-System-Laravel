@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'api',
+        'guard' => 'web',
         'passwords' => 'users',
     ],
 
@@ -81,10 +81,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
         ],
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        
     ],
 
     /*
@@ -108,7 +105,8 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-    'admins' => [
+
+        'admins' => [
             'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
