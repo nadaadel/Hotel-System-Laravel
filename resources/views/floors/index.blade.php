@@ -1,10 +1,8 @@
 @extends('admin.index')
-
 @section('content')
 <a href={{ URL::to('floors/create' )}} >
   <input type="button" class="btn btn-success" value='Create Floor '/></a>
 <br/>
-
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -17,8 +15,11 @@
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Number</th>
-                                <th>Admin No</th>
+                                @if(Auth::guard('admin')->user()->hasRole('superadmin'))
+                                <th>Admin Name</th>
+                                @endif
                                 <th >Action</th>
+                                {{ csrf_field() }}
                             </tr>
                         </thead>
                     </table>
@@ -35,6 +36,7 @@ $(document).ready(function() {
         processing: true,
         serverSide: true,
         ajax: '{{ route('floors') }}',
+        @if(Auth::guard('admin')->user()->hasRole('superadmin'))
         columns: [
             {data: 'id', name: 'id'},
             {data: 'name', name: 'name'},
@@ -42,7 +44,45 @@ $(document).ready(function() {
             {data: 'admin.name', name: 'admin.name'},
             {data: 'action', name: 'action', orderable: false, searchable: false},      
         ]
+        @else
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'number', name: 'number'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},      
+        ]
+        @endif
     });
+        
 });
 </script>
+<script>
+    $(document).on('click','.deletebtn',function(){
+            var floor_id = $(this).attr("floor-id");
+            var btn=$(this);
+            var resp = confirm("Are you sure?");
+            if (resp == true) {
+                $.ajax({ 
+                    type: 'POST',
+                    url: '/floors/'+floor_id ,
+                    data:{
+                    '_token':'{{csrf_token()}}',
+                    '_method':'DELETE',
+                    },
+                    success: function (response) {
+                        if(response.response=='success'){
+                        $('#myTable').DataTable().ajax.reload();
+                        }
+                        else{
+                            alert(response.response);
+                        }
+                    }
+                });
+    
+            }
+           
+           });
+    
+    
+    </script>    
 @endsection

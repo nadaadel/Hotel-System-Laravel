@@ -46,15 +46,15 @@ $(document).on('click','.deletebtn',function(){
                 url: '/rooms/delete/',
                 type: 'get',
                 cache: 'false',
-    contentType: 'false',
-    processData: 'false',
+                contentType: 'false',
+                processData: 'false',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                   },
                 data: {roomID: roomID},
                 success: function (response) {
                     console.log(response);
-                    //datatable.ajax.reload();
+                    $('#myTable').DataTable().ajax.reload();
                      
                 }
             });

@@ -72,12 +72,13 @@ Route::prefix('admin')->group(function() {
 });
 
 //floors 
+Route::delete('/floors/{id}','FloorsController@destroy');
 Route::get('/floors', 'FloorsController@index');
 Route::get('/floors/create', 'FloorsController@create');
 Route::post('/floors/store/{floor_number}', 'FloorsController@store');
 Route::get('/floors/edit/{id}', 'FloorsController@edit');
 Route::put('/floors/update/{id}', 'FloorsController@update');
-Route::delete('floors/delete/{id}','FloorsController@destroy');
+
 Route::get('floors/datatable', 'FloorsController@datatable')->name('floors');
 
 //Managing Rooms Routes

@@ -35,7 +35,6 @@ class Room extends Model
     public function getCreatedAtAttribute($value)
     {
         return date('M j, Y', strtotime( $value));
-       // date('M j, Y', strtotime( $room->created_at ))
     }
 
 }
