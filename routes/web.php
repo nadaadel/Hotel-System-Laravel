@@ -4,13 +4,6 @@ Auth::routes();
 //use App\Notification\RegisterNotification;
 use App\User;
 
-// Password reset link request routes...
-// Route::get('password/email', 'Auth\PasswordController@getEmail')->name();
-// Route::post('password/email', 'Auth\PasswordController@postEmail');
-
-// // Password reset routes...
-// Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
-// Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.request');
 
 
 Route::get('/getrole' , function(){
@@ -69,7 +62,7 @@ Route::get('/receptionists/{id}/unban', 'Admins\Receptionists\ReceptionistContro
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
-    Route::get('/', 'Admins\AdminController@index')->middleware('forbid-banned-admin')->name('admin.dashboard');
+    Route::get('/', 'Admins\AdminController@index')->name('admin.dashboard');
 
 });
 
@@ -110,3 +103,11 @@ $user=Auth::user();
 //dd($user);
 Notification::send($user,new RegisterNotification($user));
 });*/
+
+//resetpassword
+ Route::post('/password/email','Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+ Route::get('/password/reset','Auth\AdminForgotPasswordController@showResetLinkEmail')->name('admin.password.request');
+ Route::post('/password/reset','Auth\AdminResetPasswordController@reset');
+ Route::get('/password/reset/{token}','Auth\AdminResetPasswordController@showRestForm')->name('admin.password.rest');
+
+ 

@@ -24,7 +24,7 @@ Route::group([
 ], function () {
 
    
-    Route::post('logout', 'Api\RoomController@logout');
+    Route::post('logout', 'Api\RoomController@logoutforapi');
     Route::post('refresh', 'Api\RoomController@refresh');
     Route::post('room', 'Api\RoomController@index');
    

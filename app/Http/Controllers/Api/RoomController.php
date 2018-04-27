@@ -9,6 +9,7 @@ use App\Room;
 use App\Http\Resources\RoomResource;
 use JWTAuth;
 use JWTFactory;
+use Illuminate\Support\Facades\Auth;
 
 
 class RoomController extends Controller
@@ -39,7 +40,7 @@ class RoomController extends Controller
      }
 
   
-    public function logout()
+    public function logoutforapi()
     {
         auth()->logout();
 
