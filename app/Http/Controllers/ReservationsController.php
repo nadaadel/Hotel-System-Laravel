@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Room;
 use DB;
+use App\Rules\RoomCapacityRule;
 //use Auth;
 
 
@@ -42,13 +43,21 @@ class ReservationsController extends Controller
         ]);
     }
     public function freeRooms(){
-
        $rooms = Room::all()->where('is_reserved','0');
+       
         return view('reservations.freeRooms',
         [
             'rooms' => $rooms,
         ]);
     }   
+    public function freeRooms_datatable()
+    {        
+        $rooms = Room::all()->where('is_reserved','0');
+        return Datatables::of($rooms)
+        ->addColumn('action', function ($room) {  
+            return view('reservations.make-action',['id'=>$room->id]);
+        })->make(true);
+    }
 
     public function create($room_id)
     {
@@ -57,7 +66,7 @@ class ReservationsController extends Controller
     }   
     public function store($id,Request $request){
         $request->validate([
-            'accompany_number' => 'required|max:'.Room::find($id)->capacity,
+            'accompany_number' => ['required',new RoomCapacityRule(Room::find($id)->capacity)],
         ]);
         $room=Room::find($id);
         if($room->is_reserved){

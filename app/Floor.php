@@ -2,6 +2,7 @@
 
 namespace App;
 use App\Admin;
+use App\Room;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,4 +16,5 @@ class Floor extends Model
     public function Admin(){
         return $this->belongsTo(Admin::class);
     }
+
 }
