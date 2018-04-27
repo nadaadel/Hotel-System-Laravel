@@ -27,6 +27,7 @@ class UpdateLastLoginDate
      */
     public function handle($event)
     {
+        
         $user = $event->user;
         if($user==Auth::user()){
         $user->last_logged = Carbon::now();
