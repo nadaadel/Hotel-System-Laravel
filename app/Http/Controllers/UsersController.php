@@ -21,6 +21,7 @@ class UsersController extends Controller
     }
 
 	public function index(){
+    //dd(Auth::guard('admin')->user()->hasRole('manager'));
     $users = User::paginate(4);
     return view('users.list' ,compact('users'));
 
@@ -35,7 +36,7 @@ class UsersController extends Controller
         $countries = Cache::get('countries');
         $user = User::find($id);
         $avatarName = $user->avatar;
-        return view('users.editprofile' ,compact('user' , 'countries' , 'avatarName'));
+        return view('users..editprofile' ,compact('user' , 'countries' , 'avatarName'));
      }
     
     public function datatable(){  
