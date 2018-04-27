@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Room;
 use DB;
-//use Auth;
+use App\Admin;
 
 
 class ReservationsController extends Controller
@@ -26,21 +26,63 @@ class ReservationsController extends Controller
     }
     public function index()
     {
-       //$reservations = DB::table('room_user')->where('user_id', Auth::user()->id)->get();
-       // $reservations = User::with('user_id')->get();
-     /*  $reservations = User::find(1);
-       $reservations = DB::table('room_user')->get();
-      // $reservations = User::with('user_id')->get();*/
        $user = User::find(Auth::user()->id);
-       //dd($user->rooms());
-       /*foreach ($user->rooms as $room) {
-        dd($room->pivot->accompany_number,$room->pivot->client_paid_price);
-       }*/
+   
         return view('reservations.index',
         [
             'reservations' => $user->rooms 
         ]);
     }
+
+    public function userReservations()
+    {
+        $users = User::all();
+        //dd($user->rooms());
+        //return view('reservations.reservations')->with('reservations',$users);
+
+
+        $role=Auth::guard('admin')->user();
+        
+        if($role->hasRole('superadmin')){
+        
+            $users = User::all();
+            return view('reservations.reservations')->with('reservations',$users);
+        }
+
+        elseif ($role->hasRole('receptionist'))
+            {
+                $users = User::all()->where('registered_by',$role->id);
+               // $users=User::all()->where('registered_by',$role->id);
+                //$users = User::find(Auth::user())->where('registered_by',$role->id);
+               //dd($users);
+                return view('reservations.reservations')->with('reservations',$users);
+                
+            }
+            else{
+                dd('not allowed, you are not admin or receptionist');
+           }         
+/*
+            $user = Auth::user(); 
+            if($user->hasRole(['admin']))
+            {
+            $reservations = Reservation::all();
+            
+            }
+            elseif ($user->hasRole(['receptionist']))
+            {
+            
+                $clients=Client::where('approved_by',$user->id);
+                foreach($clients as $client){
+                    $ids=[];
+                    array_push($ids,Client::select('id'));
+                }
+                $reservations = Reservation::whereIn('client_id',$ids);
+            }
+            return Datatables::of($reservations) ->make(true); 
+       */
+    }
+    
+
     public function freeRooms(){
 
        $rooms = Room::all()->where('is_reserved','0');

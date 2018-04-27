@@ -22,7 +22,9 @@
                                 <th>Price in Dollar</th>
                                 <th> Floor Name</th>
                                 <th>Created At</th>
+                             
                                 <th>Created By</th>
+                            
                                 <th >Action</th>
                                 {{ csrf_field() }}
                             </tr>
@@ -54,7 +56,8 @@ $(document).on('click','.deletebtn',function(){
                 data: {roomID: roomID},
                 success: function (response) {
                     console.log(response);
-                    //datatable.ajax.reload();
+                    $('#my-table').DataTable().ajax.reload();
+
                      
                 }
             });

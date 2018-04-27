@@ -13,7 +13,7 @@
                         <a href="/"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Manage System</h3>
-       @role('superadmin')         
+             
         <li>
             <a href="/managers"> <i class="menu-icon fa fa-user"></i>Manage Managers</a>
         </li>
@@ -32,8 +32,7 @@
         <li>
                 <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i> Clients Pending Approval</a>
         </li>
-        @endrole
-        @role('manager')
+       
         <li>
                 <a href="/receptionists"> <i class="menu-icon fa fa-user"></i>Manage Receptionsts</a>
         </li>
@@ -49,8 +48,7 @@
         <li>
                 <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i> Clients Pending Approval</a>
         </li>
-        @endrole
-        @role('receptionist')
+       
         <li>
             <a href="/users"> <i class="menu-icon   fa fa-child"></i>My Clients</a>
         </li>
@@ -60,7 +58,7 @@
         <li>
             <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i>Clients Pending Approval</a>
         </li>
-       @endrole 
+        
                       
 {{--                   
                     <li class="menu-item-has-children dropdown">

@@ -45,6 +45,7 @@ class RoomController extends Controller
             'number' => $request->number,
             'floor_id' => $request->floor_id,
             'admin_id'=>Auth::guard('admin')->user()->id,
+            'created_by'=>Auth::guard('admin')->user()->id,
         ]);
         
        return redirect(route('rooms.index')); 
@@ -99,9 +100,20 @@ class RoomController extends Controller
     {
         $rooms = Room::with('admin','floor')->select('rooms.*');
         return Datatables::of($rooms)
-            ->addColumn('action', function ($room) {
+          /*  ->addColumn('action', function ($room) {
                 return '<a href="/rooms/edit/'. $room->id.'"  type="button" class="btn btn-warning" >Edit</a>
-                <a class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash deletebtn" room-id="'.$room->id.'" {{ csrf_token() }}> Delete </i> </a>  ';
-            })->make(true);
+                <a class="btn btn-xs btn-danger">
+                <i class="glyphicon glyphicon-trash deletebtn" room-id="'.$room->id.'" {{ csrf_token() }}> Delete </i> </a>  ';
+            })*/
+            
+            ->addColumn('action', function ($room) {
+                if($room->admin_id==Auth::guard('admin')->user()->id)
+                return '<a href="/rooms/edit/'. $room->id.'"  type="button" class="btn btn-warning" >Edit</a>
+                <a class="btn btn-xs btn-danger">
+                <i class="glyphicon glyphicon-trash deletebtn" room-id="'.$room->id.'" {{ csrf_token() }}> Delete </i> </a>  ';
+                else 
+                return 'You have no actions';
+            })
+            ->make(true);
     }
 }
