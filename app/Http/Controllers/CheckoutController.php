@@ -13,8 +13,7 @@ class CheckoutController extends Controller
        return view('reservations.checkout');
     }
     public function payment(Request $request){
-        // dd($request->all());
-        // return view('reservations.checkout');
+       
     try{    
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $user = User::find(Auth()->user()->id);

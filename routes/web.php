@@ -1,9 +1,10 @@
 <?php
 //Auth Route
 Auth::routes();
-//use App\Notification\RegisterNotification;
+
 use App\User;
 
+//forget password for admin
 Route::post('/admin/login/password/email','Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
 Route::get('/admin/login/password/reset','Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 Route::post('/admin/login/password/reset','Auth\AdminResetPasswordController@reset');
@@ -19,27 +20,57 @@ Route::get('/', function(){
     return view('welcome');
 });
 Route::get('/home', 'HomeController@index');
-Route::get('/adminpanel', 'HomeController@showPanel');
+//Route::get('/adminpanel', 'HomeController@showPanel');
 
-//Payment Route
-Route::get('/reservations/checkout', 'CheckoutController@checkout');
-Route::post('/reservations/payment', 'CheckoutController@payment');
+
 
 //Clients Route
+Route::group([
+
+    'middleware'=>'auth'
+
+  
+],function(){
+
+Route::get('/users/editprofile/{id}', 'UsersController@editProfile')->name('usersEdit');
+Route::get('/client', 'ReservationsController@index')->name('reservation.index');
+Route::get('/client/freeRooms', 'ReservationsController@freeRooms');
+Route::get('/client/rooms/{room_id}','ReservationsController@create');
+Route::post('/client/store/{id}','ReservationsController@store');
+
+
+});
+
+
+
+//admin login routes
+Route::get('admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+
+
+
+
+
+Route::group([
+
+    'middleware'=>'auth:admin'
+
+  
+],
+function () {
+
+    Route::get('/adminpanel', 'HomeController@index')->name('admin.dashboard');
+    Route::get('/users/reservations', 'ReservationsController@userReservations');
+
+ //users routes
 Route::get('/users', 'UsersController@index')->name('usersList')->where('role','superadmin');
 Route::get('/users/create', 'UsersController@create')->name('createUser');
 Route::post('/users/store', 'UsersController@store')->name('storeUser');
-
-Route::get('/users/datatable', 'UsersController@datatable')->name('userslist');
-Route::get('/users/show/{id}', 'UsersController@show')->name('usersShow');
-Route::get('/users/edit/{id}', 'UsersController@edit')->name('usersEdit');
-Route::get('/users/editprofile/{id}', 'UsersController@editProfile')->name('usersEdit');
 Route::put('/users/update/{id}', 'UsersController@update')->name('usersUpdate');
 Route::delete('/users/delete/{id}', 'UsersController@destroy')->name('usersdelete');
-Route::get('/users/approve','UsersController@approve');
-Route::get('/users/data','UsersController@data');
-Route::get('/users/approve/{id}','UsersController@changeapprove');
-
+Route::get('/users/datatable', 'UsersController@datatable')->name('userslist');
+Route::get('/users/show/{id}', 'UsersController@show')->name('usersShow');
+Route::get('/users/edit/{id}', 'UsersController@edit')->name('usersEdit');   
 // managers routes
 Route::get('/managers', 'Admins\Managers\ManagerController@index')->name('managerList')->where('role','superadmin');
 Route::get('/managers/create', 'Admins\Managers\ManagerController@create')->name('managerCreate');
@@ -58,21 +89,18 @@ Route::post('/receptionists', 'Admins\Receptionists\ReceptionistController@store
 Route::get('/receptionists/{id}', 'Admins\Receptionists\ReceptionistController@show')->name('receptionistShow');
 Route::get('/receptionists/{id}/edit', 'Admins\Receptionists\ReceptionistController@edit')->name('receptionistEdit');
 Route::put('/receptionists/{id}', 'Admins\Receptionists\ReceptionistController@update')->name('receptionistUpdate');
-Route::delete('/receptionists/{id}', 'Admins\Receptionists\ReceptionistControllerr@destroy')->name('receptionistdelete');
+Route::delete('/receptionists/{id}', 'Admins\Receptionists\ReceptionistController@destroy')->name('receptionistdelete');
 Route::get('data', 'Admins\Receptionists\ReceptionistController@datatable');
 Route::get('/receptionists/{id}/ban', 'Admins\Receptionists\ReceptionistController@ban');
 Route::get('/receptionists/{id}/unban', 'Admins\Receptionists\ReceptionistController@unban');
 
+//pending page
+Route::get('/users/approve','UsersController@approve');
+Route::get('/users/data','UsersController@data');
+Route::get('/users/approve/{id}','UsersController@changeapprove');
 
 
 
-//admin routes
-Route::prefix('admin')->group(function() {
-    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
-    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
-    Route::get('/', 'Admins\AdminController@index')->name('admin.dashboard');
-
-});
 
 //floors 
 Route::delete('/floors/{id}','FloorsController@destroy');
@@ -92,26 +120,9 @@ Route::post('/rooms','RoomController@store');
 Route::put('/rooms/update/{id}', 'RoomController@update');
 Route::delete('rooms/delete/{id}', 'RoomController@destroy');
 Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
+});
 
 //reservations routes
-Route::get('/client', 'ReservationsController@index')->name('reservation.index')->middleware('auth');
-
-Route::get('/client/freeRooms', 'ReservationsController@freeRooms')->middleware('auth');
-Route::get('/client/rooms/{room_id}','ReservationsController@create')->middleware('auth');
-Route::post('/client/store/{id}','ReservationsController@store')->middleware('auth');
-Route::get('/users/reservations', 'ReservationsController@userReservations');
-/*Route::get('/client/approved',function(){
-    $user=App\User::find(1)->notify(new Reserved);
-    //Notification::send($user,new Reserved());
-
- return view('welcome');
-});*/
-/*
-Route::get('/client/approved',function(){
-$user=Auth::user();
-//dd($user);
-Notification::send($user,new RegisterNotification($user));
-});*/
 
 
  

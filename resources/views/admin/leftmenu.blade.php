@@ -40,6 +40,9 @@
         <li>
                 <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i> Clients Pending Approval</a>
         </li>
+        <li>
+                <a href="/users/reservations"> <i class="menu-icon   fa fa-child"></i>Clients Reservations</a>
+        </li>
       @endrole
 {{--                   
                     <li class="menu-item-has-children dropdown">
