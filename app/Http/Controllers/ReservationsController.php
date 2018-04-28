@@ -8,7 +8,7 @@ use App\User;
 use App\Room;
 use DB;
 use App\Rules\RoomCapacityRule;
-//use Auth;
+use yajra\Datatables\Datatables;
 
 
 class ReservationsController extends Controller
@@ -42,15 +42,11 @@ class ReservationsController extends Controller
             'reservations' => $user->rooms 
         ]);
     }
-    public function freeRooms(){
-       $rooms = Room::all()->where('is_reserved','0');
-       
-        return view('reservations.freeRooms',
-        [
-            'rooms' => $rooms,
-        ]);
+    public function freeRooms(){       
+        return view('reservations.freerooms');
     }   
-    public function freeRooms_datatable()
+
+    public function freeRoomsDatatable()
     {        
         $rooms = Room::all()->where('is_reserved','0');
         return Datatables::of($rooms)
@@ -58,7 +54,6 @@ class ReservationsController extends Controller
             return view('reservations.make-action',['id'=>$room->id]);
         })->make(true);
     }
-
     public function create($room_id)
     {
        $room = Room::find($room_id);
@@ -79,6 +74,6 @@ class ReservationsController extends Controller
         'accompany_number' => $request->accompany_number,
         'client_paid_price'=>$request->price
         ]);
-        return redirect('/client/freeRooms'); 
+        return redirect('/client/freerooms'); 
     }
 }

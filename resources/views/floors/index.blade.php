@@ -59,7 +59,6 @@ $(document).ready(function() {
 <script>
     $(document).on('click','.deletebtn',function(){
             var floor_id = $(this).attr("floor-id");
-            var btn=$(this);
             var resp = confirm("Are you sure?");
             if (resp == true) {
                 $.ajax({ 

@@ -46,7 +46,7 @@ Route::get('/managers/{id}/edit', 'Admins\Managers\ManagerController@edit')->nam
 Route::put('/managers/{id}', 'Admins\Managers\ManagerController@update')->name('managerUpdate');
 Route::delete('/managers/{id}', 'Admins\Managers\ManagerController@destroy')->name('managerdelete');
 Route::get('datatable', 'Admins\Managers\ManagerController@datatable');
-
+Route::get('/managers/piechart', 'Admins\Managers\ManagerController@piechart');
 //receptionists routes
 
 Route::get('/receptionists', 'Admins\Receptionists\ReceptionistController@index')->name('receptionistList');
@@ -55,7 +55,7 @@ Route::post('/receptionists', 'Admins\Receptionists\ReceptionistController@store
 Route::get('/receptionists/{id}', 'Admins\Receptionists\ReceptionistController@show')->name('receptionistShow');
 Route::get('/receptionists/{id}/edit', 'Admins\Receptionists\ReceptionistController@edit')->name('receptionistEdit');
 Route::put('/receptionists/{id}', 'Admins\Receptionists\ReceptionistController@update')->name('receptionistUpdate');
-Route::delete('/receptionists/{id}', 'Admins\Receptionists\ReceptionistControllerr@destroy')->name('receptionistdelete');
+Route::delete('/receptionists/{id}', 'Admins\Receptionists\ReceptionistController@destroy')->name('receptionistdelete');
 Route::get('data', 'Admins\Receptionists\ReceptionistController@datatable');
 Route::get('/receptionists/{id}/ban', 'Admins\Receptionists\ReceptionistController@ban');
 Route::get('/receptionists/{id}/unban', 'Admins\Receptionists\ReceptionistController@unban');
@@ -90,13 +90,15 @@ Route::put('/rooms/update/{id}', 'RoomController@update');
 Route::get('/rooms/delete/', 'RoomController@destroy');
 Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
 
+
+
 //reservations routes
 Route::get('/client', 'ReservationsController@index')->name('reservation.index')->middleware('auth');
 
-Route::get('/client/freeRooms', 'ReservationsController@freeRooms')->middleware('auth');
+Route::get('/client/freerooms', 'ReservationsController@freerooms')->middleware('auth');
 Route::get('/client/rooms/{room_id}','ReservationsController@create')->middleware('auth');
 Route::post('/client/store/{id}','ReservationsController@store')->middleware('auth');
-
+Route::get('/freerooms/datatable', 'ReservationsController@freeRoomsDatatable')->name('freerooms')->middleware('auth');;
 /*Route::get('/client/approved',function(){
     $user=App\User::find(1)->notify(new Reserved);
     //Notification::send($user,new Reserved());

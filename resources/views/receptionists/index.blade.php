@@ -51,4 +51,34 @@ $(document).ready(function() {
     });
 });
 </script>
+<script type="text/javascript">
+    $(document).on('click','.deletebtn',function(){
+            var id = $(this).attr("m-id");
+            var btn=this;
+            var resp = confirm("Are you sure?");
+            if (resp == true) {
+                $.ajax({ 
+                    type: 'POST',
+                    url:  '/receptionists/'+id ,
+                    data:{
+                    '_token':'{{csrf_token()}}',
+                    '_method':'DELETE',
+                    },
+                    success: function (response) {
+                        if(response.response=='success'){
+                            var i = btn.parentNode.parentNode.rowIndex;
+                            document.getElementById("myTable").deleteRow(i);
+                        }
+                        else{
+                            alert(response.response);
+                        }
+                    }
+                });
+    
+            }
+           
+           });
+    
+    
+    </script>  
 @endsection
