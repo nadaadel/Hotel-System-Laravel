@@ -48,8 +48,11 @@ class ReservationsController extends Controller
 
         elseif ($role->hasRole('receptionist'))
             {
+                $user = Auth::guard('admin')->user();
                 $users = User::all()->where('registered_by',$role->id); 
-                return view('reservations.reservations')->with('reservations',$users); 
+                return view('reservations.reservations' , ['reservations' =>$users ,
+                'user' =>$user]
+            );
             }
             else{
                 dd('not allowed, you are not admin or receptionist');

@@ -22,9 +22,7 @@ Route::get('/', function(){
 Route::get('/home', 'HomeController@index');
 Route::get('/adminpanel', 'HomeController@index');
 
-//Payment Route
-Route::get('/reservations/checkout', 'ReservationsController@checkout');
-Route::post('/reservations/payment', 'ReservationsController@payment');
+
 
 //Clients Route
 Route::group([
@@ -55,7 +53,7 @@ Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login
 
 Route::group([
 
-    'middleware'=>'auth:admin',
+    'middleware'=>'auth:admin,forbid-banned-admin',
 
   
 ],

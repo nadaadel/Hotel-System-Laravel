@@ -32,7 +32,8 @@ class ManagerController extends Controller
     public function index()
     { 
         //to get admins has role manager
-        
+        $user=Auth::guard('admin')->user()->id;
+
         return view('managers.index');
        
     }

@@ -2,7 +2,11 @@
 
 @section('content')
 
+@if($user->isBanned())
 
+<div>You are banned</div>
+
+@else
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -27,6 +31,7 @@
         </div>
     </div>
 </div>
+@endif
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 <script type="text/javascript">

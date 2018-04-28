@@ -1,5 +1,10 @@
 @extends('admin.index')
 @section('content')
+@if($user->isBanned())
+
+<div>You are banned</div>
+
+@else
 <form action="/users/create" method="GET">
     @csrf
     <input type="submit" class="btn btn-success"Value="Create Client">
@@ -35,7 +40,7 @@
         </div>
     </div>
 </div>
-
+@endif  
 <script type="text/css"href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 <script type="text/css"href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"></script>
 

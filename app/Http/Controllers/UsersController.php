@@ -19,9 +19,9 @@ class UsersController extends Controller
     
 
 	public function index(){
-    
+    $user=Auth::guard('admin')->user();
     $users = User::paginate(4);
-    return view('users.list' ,compact('users'));
+    return view('users.list' ,compact('users' , 'user'));
 
     }
     public function create(){
@@ -101,7 +101,9 @@ class UsersController extends Controller
 
 
     public function approve(){
-        return view('users.approve');
+        $user=Auth::guard('admin')->user();
+        
+        return view('users.approve' , compact('user'));
     }
 
     public function data(){
