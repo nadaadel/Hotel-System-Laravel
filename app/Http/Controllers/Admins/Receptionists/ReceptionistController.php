@@ -171,7 +171,7 @@ class ReceptionistController extends Controller
             $receptionistAvatar=  $receptionist->avatar;
             Storage::delete($receptionistAvatar);
             Admin::find($id)->delete();
-            return redirect(route('receptionistList'));
+            return response()->json(['response' => "success"]);
           
            
         }

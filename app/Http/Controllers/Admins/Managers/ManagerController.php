@@ -139,10 +139,11 @@ class ManagerController extends Controller
         public function destroy($id)
         {
             $manager=Admin::find($id);
-            $ManagerAvatar=$manager->avatar;
-            Storage::delete($ManagerAvatar);
             Admin::find($id)->delete();
-            return redirect(route('managerList'));
+           $ManagerAvatar=$manager->avatar;
+            Storage::delete($ManagerAvatar);
+            
+            return response()->json(['response' => "success"]);
           
            
         }

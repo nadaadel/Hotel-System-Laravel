@@ -13,12 +13,8 @@
                         <a href="/"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Manage System</h3>
-<<<<<<< HEAD
-             
-=======
-     //functionality of left menu
-        @role('spueradmin') 
->>>>>>> d68f5dddd9cff28091942efc4d2c9f8c9f38707c
+     
+        @role('superadmin') 
         <li>
             <a href="/managers"> <i class="menu-icon fa fa-user"></i>Manage Managers</a>
         </li>
@@ -45,13 +41,6 @@
                 <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i> Clients Pending Approval</a>
         </li>
       @endrole
- 
-     
-      
-    
-
-   
-                      
 {{--                   
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
