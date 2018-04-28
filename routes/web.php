@@ -53,7 +53,7 @@ Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login
 
 Route::group([
 
-    'middleware'=>'auth:admin,forbid-banned-user',
+    'middleware'=>'auth:admin',
 
   
 ],
@@ -125,6 +125,7 @@ Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
 
 
 //reservations routes
+
 Route::get('/client', 'ReservationsController@index')->name('reservation.index')->middleware('auth');
 
 Route::get('/client/freerooms', 'ReservationsController@freerooms')->middleware('auth');
