@@ -80,7 +80,7 @@ Route::get('/managers/{id}/edit', 'Admins\Managers\ManagerController@edit')->nam
 Route::put('/managers/{id}', 'Admins\Managers\ManagerController@update')->name('managerUpdate');
 Route::delete('/managers/{id}', 'Admins\Managers\ManagerController@destroy')->name('managerdelete');
 Route::get('datatable', 'Admins\Managers\ManagerController@datatable');
-
+Route::get('/managers/piechart', 'Admins\Managers\ManagerController@piechart');
 //receptionists routes
 
 Route::get('/receptionists', 'Admins\Receptionists\ReceptionistController@index')->name('receptionistList');
@@ -122,7 +122,18 @@ Route::delete('rooms/delete/{id}', 'RoomController@destroy');
 Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
 });
 
+
+
 //reservations routes
+
+Route::get('/client', 'ReservationsController@index')->name('reservation.index')->middleware('auth');
+
+Route::get('/client/freerooms', 'ReservationsController@freerooms')->middleware('auth');
+Route::get('/client/rooms/{room_id}','ReservationsController@create')->middleware('auth');
+Route::post('/client/store/{id}','ReservationsController@store')->middleware('auth');
+Route::get('/freerooms/datatable', 'ReservationsController@freeRoomsDatatable')->name('freerooms')->middleware('auth');;
+
+
 
 
  

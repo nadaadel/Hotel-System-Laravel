@@ -16,7 +16,7 @@
                                 <th>Name</th>
                                 <th>Number</th>
                                 @if(Auth::guard('admin')->user()->hasRole('superadmin'))
-                                <th>Admin Name</th>
+                                <th>Manager Name</th>
                                 @endif
                                 <th >Action</th>
                                 {{ csrf_field() }}
@@ -59,7 +59,6 @@ $(document).ready(function() {
 <script>
     $(document).on('click','.deletebtn',function(){
             var floor_id = $(this).attr("floor-id");
-            var btn=$(this);
             var resp = confirm("Are you sure?");
             if (resp == true) {
                 $.ajax({ 

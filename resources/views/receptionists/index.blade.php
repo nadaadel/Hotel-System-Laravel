@@ -57,26 +57,23 @@ $(document).ready(function() {
     });
 });
 </script>
-<script>
+<script type="text/javascript">
     $(document).on('click','.deletebtn',function(){
-            var id = $(this).attr("id");
-            var btn=$(this);
+            var id = $(this).attr("m-id");
+            var btn=this;
             var resp = confirm("Are you sure?");
             if (resp == true) {
                 $.ajax({ 
                     type: 'POST',
-                    url: '/receptionists/'+id ,
+                    url:  '/receptionists/'+id ,
                     data:{
-                    '_token':'{{ csrf_token() }}',
+                    '_token':'{{csrf_token()}}',
                     '_method':'DELETE',
                     },
                     success: function (response) {
-                        if(response.response=='success'){ 
-                        
-                               console.log("hiiiiii")                  
-                        $('#myTable').DataTable.ajax.reload();
-                        
-                        
+                        if(response.response=='success'){
+                            var i = btn.parentNode.parentNode.rowIndex;
+                            document.getElementById("myTable").deleteRow(i);
                         }
                         else{
                             alert(response.response);
@@ -87,7 +84,6 @@ $(document).ready(function() {
             }
            
            });
-    
-    
-    </script>
+    </script>  
+
 @endsection

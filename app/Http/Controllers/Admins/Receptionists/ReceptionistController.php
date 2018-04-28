@@ -167,13 +167,15 @@ class ReceptionistController extends Controller
         public function destroy($id)
         {
             $receptionist=Admin::find($id);
-            Admin::find($id)->delete();
             $receptionistAvatar=  $receptionist->avatar;
+            Storage::delete($receptionistAvatar);
+            Admin::find($id)->delete();
             Storage::delete($receptionistAvatar);
             return response()->json(['response' => "success"]);
           
            
         }
+
         function ban($id){
             $receptionist=Admin::find($id);
             if (!$receptionist->isBanned())

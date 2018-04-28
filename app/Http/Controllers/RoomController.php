@@ -42,11 +42,9 @@ class RoomController extends Controller
         Room::create([
             'capacity' => $request->capacity,
             'price' => $request->price,
-            //'number' => $this->generateRoomNumber(),
             'number' => $request->number,
             'floor_id' => $request->floor_id,
             'admin_id'=>Auth::guard('admin')->user()->id,
-            // 'created_by'=>Auth::guard('admin')->user()->id,
         ]);
         
        return redirect(route('rooms.index')); 
@@ -72,7 +70,6 @@ class RoomController extends Controller
         $users = User::all();
         $roles = Admin::all();
         $room = Room::find($id);
-
         $room->capacity= $request->input('capacity');
         $room->number = $request->input('number');
         $room->price = $request->input('price');

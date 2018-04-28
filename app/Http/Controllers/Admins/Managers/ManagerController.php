@@ -37,6 +37,12 @@ class ManagerController extends Controller
         return view('managers.index');
        
     }
+    public function piechart()
+    {         
+        return view('managers.pie-chart');
+       
+    }
+
 
     public function datatable()
     {
