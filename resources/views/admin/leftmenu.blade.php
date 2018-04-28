@@ -13,8 +13,8 @@
                         <a href="/"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Manage System</h3>
-     //functionality of left menu
-        @role('spueradmin') 
+     
+        @role('superadmin') 
         <li>
             <a href="/managers"> <i class="menu-icon fa fa-user"></i>Manage Managers</a>
         </li>

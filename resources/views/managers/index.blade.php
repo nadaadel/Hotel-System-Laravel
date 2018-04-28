@@ -19,6 +19,7 @@
                                 <th>Email</th>
                             
                                 <th >Action</th>
+                                {{ csrf_field() }}
                             </tr>
                         </thead>
                     </table>
@@ -45,4 +46,33 @@ $(document).ready(function() {
     });
 });
 </script>
+<script>
+    $(document).on('click','.deletebtn',function(){
+            var id = $(this).attr("id");
+            var btn=$(this);
+            var resp = confirm("Are you sure?");
+            if (resp == true) {
+                $.ajax({ 
+                    type: 'POST',
+                    url: '/managers/'+id ,
+                    data:{
+                    '_token':'{{csrf_token()}}',
+                    '_method':'DELETE',
+                    },
+                    success: function (response) {
+                        if(response.response=='success'){
+                        $('#myTable').DataTable().ajax.reload();
+                        }
+                        else{
+                            alert(response.response);
+                        }
+                    }
+                });
+    
+            }
+           
+           });
+    
+    
+    </script>
 @endsection

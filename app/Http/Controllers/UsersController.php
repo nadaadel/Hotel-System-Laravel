@@ -93,7 +93,7 @@ class UsersController extends Controller
     }
 
     public function data(){
-    $users = User::select(['id','name','email','gender','is_registered'])->where('is_registered',0);
+    $users = User::select(['id','name','email','phone','country','gender'])->where('is_registered',0);
     
     return Datatables::of($users)->addColumn('action' , function($user){
         
