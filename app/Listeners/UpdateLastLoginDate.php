@@ -8,6 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use Carbon\Carbon;
 
+
+
 class UpdateLastLoginDate
 {
     /**

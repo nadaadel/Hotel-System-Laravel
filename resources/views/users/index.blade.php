@@ -41,6 +41,7 @@ $(document).ready(function() {
         processing: true,
         serverSide: true,
         ajax: '{{ route('userslist') }}',
+    
         @role('superadmin')
         columns: [
             {data: 'id', name: 'id'},
@@ -61,9 +62,12 @@ $(document).ready(function() {
             {data: 'phone', name: 'phone'},
             {data: 'country', name: 'country'},
             {data: 'action', name: 'action', orderable: false, searchable: false},      
-        ]
+        ],
     @endrole
+    
     });
 });
+
+
 </script>
 @endsection

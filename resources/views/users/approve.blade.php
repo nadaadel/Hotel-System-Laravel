@@ -14,7 +14,10 @@
                             <tr>
                                 
                                 <th>Name</th>
-                                <th>Is register</th>
+                                <th>Email</th>
+                                <th>Mobil</th>
+                                <th>Country</th>
+                                <th>Gender</th>
                                 <th >Action</th>
                             </tr>
                         </thead>
@@ -36,7 +39,10 @@ $(document).ready(function() {
            
             {data: 'name', name: 'name'},
            
-            {data:'is_registered',name:'is_registered'},
+            {data:'email',name:'email'},
+            {data:'phone',name:'phone'},
+            {data:'country',name:'country'},
+            {data:'gender',name:'gender'},
             
             {data: 'action', name: 'action', orderable: false, searchable: false},
           
