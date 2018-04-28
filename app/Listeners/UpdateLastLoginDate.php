@@ -6,7 +6,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use Auth;
+
 
 class UpdateLastLoginDate
 {

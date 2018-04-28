@@ -62,4 +62,29 @@ $(document).ready(function() {
     });
 });
 </script>
+<script>
+    $(document).on('click','.deletebtn',function(){
+            var user_id = $(this).attr("user-id");
+            console.log(user_id)
+            var resp = confirm("Are you sure?");
+            if (resp == true) {
+                $.ajax({ 
+                    type: 'POST',
+                    url: '/users/delete/'+user_id ,
+                    data:{
+                    '_token':'{{csrf_token()}}',
+                    '_method':'DELETE',
+                    },
+                    success: function (response) {
+                        if(response.response=='success'){
+                        $('#myTable').DataTable().ajax.reload();
+                        }
+                        else{
+                            alert(response.response);
+                        }
+                    }
+                });
+            }
+           });
+    </script>  
 @endsection

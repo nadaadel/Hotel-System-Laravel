@@ -40,9 +40,7 @@ class UsersController extends Controller
      }
     
     public function datatable(){  
-
-
-        $users = User::select(['id','name','email' , 'phone', 'country' ,'gender','registered_by']);
+        $users = User::select(['id','name','email' , 'phone', 'country' ,'gender','is_registered','registered_by'])->where('is_registered' , 1);;
         return Datatables::of($users)->addColumn('action' , function($users){
             $paction = "no";            
             $currentRole=Auth::guard('admin')->user();
@@ -99,7 +97,8 @@ class UsersController extends Controller
     public function destroy($id){
     $user = User::find($id);
     $user->delete();
-    return redirect('/users');
+    return response()->json(['response' => "success"]);
+
     }
     public function approve(){
         return view('users.approve');
