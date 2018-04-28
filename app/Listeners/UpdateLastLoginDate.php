@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Listeners;
-
+//use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Auth;
+
 use Carbon\Carbon;
+
 
 
 class UpdateLastLoginDate

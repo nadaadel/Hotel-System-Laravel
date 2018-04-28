@@ -2,7 +2,8 @@
 @extends('layouts.app')
 @section('content')
 <center>
-  <h1>My Reservations</h1><br>
+@if($user->is_registered==1)
+        <h1>My Reservations</h1><br>
    <a href="/client/freeRooms" >
    <button class="btn-success">New Reservation</button></a></center>
    <br><table class="table table-striped">
@@ -21,4 +22,9 @@
 
         </tr>
         </table>
+
+@else
+        <h1>You will be approved soon :)</h1>
+
+ @endif 
         @endsection

@@ -9,21 +9,24 @@ Route::get('/admin/login/password/reset','Auth\AdminForgotPasswordController@sho
 Route::post('/admin/login/password/reset','Auth\AdminResetPasswordController@reset');
 Route::get('/admin/login/password/reset/{token}','Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 
- 
-
 Route::get('/getrole' , function(){
     dd(Auth::guard('admin')->user()->getRoleNames()->first());
 });
 
+
 //Home Route
-Route::get('/', 'HomeController@index');
+Route::get('/', function(){
+    return view('welcome');
+});
+Route::get('/home', 'HomeController@index');
+Route::get('/adminpanel', 'HomeController@showPanel');
 
 //Payment Route
 Route::get('/reservations/checkout', 'CheckoutController@checkout');
 Route::post('/reservations/payment', 'CheckoutController@payment');
 
 //Clients Route
-Route::get('/users', 'UsersController@index')->name('usersList');
+Route::get('/users', 'UsersController@index')->name('usersList')->where('role','superadmin');
 Route::get('/users/create', 'UsersController@create')->name('createUser');
 Route::post('/users/store', 'UsersController@store')->name('storeUser');
 
@@ -87,7 +90,7 @@ Route::get('/rooms/edit/{id}', 'RoomController@edit');
 Route::get('/rooms/create', 'RoomController@create');
 Route::post('/rooms','RoomController@store');
 Route::put('/rooms/update/{id}', 'RoomController@update');
-Route::get('/rooms/delete/', 'RoomController@destroy');
+Route::delete('rooms/delete/{id}', 'RoomController@destroy');
 Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
 
 //reservations routes
@@ -96,7 +99,7 @@ Route::get('/client', 'ReservationsController@index')->name('reservation.index')
 Route::get('/client/freeRooms', 'ReservationsController@freeRooms')->middleware('auth');
 Route::get('/client/rooms/{room_id}','ReservationsController@create')->middleware('auth');
 Route::post('/client/store/{id}','ReservationsController@store')->middleware('auth');
-
+Route::get('/users/reservations', 'ReservationsController@userReservations');
 /*Route::get('/client/approved',function(){
     $user=App\User::find(1)->notify(new Reserved);
     //Notification::send($user,new Reserved());

@@ -22,7 +22,9 @@
                                 <th>Gender</th>
                                 <th>Mobile</th>
                                 <th>Country</th> 
+                            @role('superadmin')
                                 <th>Created By</th>
+                            @endrole
                                 <th>Action</th>
                                 {{ csrf_field() }}
                             </tr>
@@ -48,11 +50,41 @@ $(document).ready(function() {
             {data: 'gender', name: 'gender'},
             {data: 'phone', name: 'phone'},
             {data: 'country', name: 'country'},
-            {data: 'registered_by', name: 'registered_by'},
+        @role('superadmin')
+
+            {data: 'managername', name: 'managername'},
+            
+        @endrole
+
             {data: 'action', name: 'action', orderable: false, searchable: false},      
         ]
     
     });
 });
 </script>
+<script>
+    $(document).on('click','.deletebtn',function(){
+            var user_id = $(this).attr("user-id");
+            console.log(user_id)
+            var resp = confirm("Are you sure?");
+            if (resp == true) {
+                $.ajax({ 
+                    type: 'POST',
+                    url: '/users/delete/'+user_id ,
+                    data:{
+                    '_token':'{{csrf_token()}}',
+                    '_method':'DELETE',
+                    },
+                    success: function (response) {
+                        if(response.response=='success'){
+                        $('#myTable').DataTable().ajax.reload();
+                        }
+                        else{
+                            alert(response.response);
+                        }
+                    }
+                });
+            }
+           });
+    </script>  
 @endsection
