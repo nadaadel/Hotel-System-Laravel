@@ -39,17 +39,6 @@ class UsersController extends Controller
         return view('users..editprofile' ,compact('user' , 'countries' , 'avatarName'));
      }
     
-<<<<<<< HEAD
-    // if($hasRole == "superadmin"){
-        return Datatables::of($users)
-  
-        ->addColumn('action' , function($user){
-            return '<a href="/users/edit/'. $user->id.'"  type="button" class="btn btn-warning" >Edit</a>
-            <form action="/users/delete/'.$user->id.'" 
-            onsubmit="return confirm(\'Do you really want to delete?\');" method="post" >'.csrf_field().method_field("Delete").'<input name="_method" value="delete" type="submit" class="btn btn-danger" /></form>';
-        })
-        ->make(true);
-=======
     public function datatable(){  
         $users = User::select(['id','name','email' , 'phone', 'country' ,'gender','is_registered','registered_by'])->where('is_registered' , 1);;
         return Datatables::of($users)->addColumn('action' , function($users){
@@ -70,7 +59,6 @@ class UsersController extends Controller
             }
              
         })->make(true);
->>>>>>> 7b7c7e05f4a654c449efc8aa4bc09975ba0ac3b4
     
     }
 
