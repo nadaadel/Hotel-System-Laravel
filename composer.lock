@@ -4,10 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-
-    "content-hash": "479b3053eaf3a22de7bcb4db91d986db",
-
-
+    "content-hash": "de16c51727546956c7d4671100536d89",
     "packages": [
         {
             "name": "cybercog/laravel-ban",
@@ -4029,7 +4026,7 @@
             ],
             "authors": [
                 {
-                    "name": "Padraic Brady",
+                    "name": "Pádraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },

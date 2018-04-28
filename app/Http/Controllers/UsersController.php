@@ -43,11 +43,14 @@ class UsersController extends Controller
     $users = User::select(['id','name','email' , 'phone', 'country' ,'gender','registered_by']);
     
     // if($hasRole == "superadmin"){
-        return Datatables::of($users)->addColumn('action' , function($user){
+        return Datatables::of($users)
+  
+        ->addColumn('action' , function($user){
             return '<a href="/users/edit/'. $user->id.'"  type="button" class="btn btn-warning" >Edit</a>
             <form action="/users/delete/'.$user->id.'" 
             onsubmit="return confirm(\'Do you really want to delete?\');" method="post" >'.csrf_field().method_field("Delete").'<input name="_method" value="delete" type="submit" class="btn btn-danger" /></form>';
-        })->make(true);
+        })
+        ->make(true);
     
     }
 
