@@ -86,10 +86,11 @@ class ReceptionistController extends Controller
         $file=$request->file('photo');
        
         if ($file){
-            $path = $file->store('public/images'); 
+            $path = $file->store('public/uploads'); 
+            $pathName = $file->hashName();
          }
          else{
-            $path="public/images/12.jpg";
+            $pathName="default.png";
         }
          $currentlogin=Auth::guard('admin')->user();
         
@@ -99,7 +100,7 @@ class ReceptionistController extends Controller
             'national_id' => $request->national_id,
             'password'=>Hash::make($request->password),
             'created_by'=>$currentlogin->id,
-            'avatar'=>$path,
+            'avatar'=>$pathName,
 
          ]);
         
@@ -141,10 +142,11 @@ class ReceptionistController extends Controller
           $file=$request->file('photo');
           
           if ($file){
-            $path = $file->store('public/images'); 
+            $path = $file->store('public/uploads'); 
+            $pathName = $file->hashName();
           }
          else{
-             $path=$receptionist->avatar;
+             $pathName=$receptionist->avatar;
          }
          
         
@@ -155,7 +157,7 @@ class ReceptionistController extends Controller
             'national_id'=> $request->national_id,
             'password'=>$request->password,
             
-            'avatar'=>$path,
+            'avatar'=>$pathName,
           ]);
          return redirect(route('receptionistList'));
        

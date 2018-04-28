@@ -71,10 +71,13 @@ class ManagerController extends Controller
         $file=$request->file('photo');
        
         if ($file){
-            $path = $file->store('public/images'); 
+            $path = $file->store('public/uploads'); 
+            $pathName =  $request->file('photo')->hashName();
          }
          else{
-            $path="public/images/12.jpg";
+
+            $pathName =  'default.png';
+            
         }
         
          $admin= Admin::create([
@@ -82,7 +85,7 @@ class ManagerController extends Controller
             'email' => $request->email,
             'national_id' => $request->national_id,
             'password'=>Hash::make($request->password),
-            'avatar'=>$path,
+            'avatar'=>$pathName,
 
          ]);
          $admin->assignRole('manager');
@@ -121,10 +124,12 @@ class ManagerController extends Controller
           $file=$request->file('photo');
           
           if ($file){
-            $path = $file->store('public/images'); 
+            $path = $file->store('public/uploads'); 
+            $pathName =  $request->file('photo')->hashName();
+         
           }
          else{
-             $path=$manager->avatar;
+            $pathName=$manager->avatar;
          }
          
 
@@ -134,7 +139,7 @@ class ManagerController extends Controller
             'email' => $request->email,
             'national_id'=> $request->national_id,
             'password'=>$request->password,
-            'avatar'=>$path,
+            'avatar'=> $pathName,
           ]);
          return redirect(route('managerList'));
        

@@ -106,7 +106,7 @@
                             <div class="form-group row">
                                     <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Upload Yous Avatar') }}</label>
                                     <div class="form-group col-md-6">
-                                    <input type="file" class="form-control-file" name="avatar">
+                                    <input type="file" class="form-control-file" name="avatar" >
 
                                     </div>
                                 @if ($errors->has('avatar'))

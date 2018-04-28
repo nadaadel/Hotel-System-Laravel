@@ -60,7 +60,7 @@ class RegisterController extends Controller
             'gender' => 'required',
             'phone' => 'required',
             'country' => 'required',
-            'avatar' => 'required',
+            'avatar' => 'image|mimes:jpeg,jpg',
         ]);
     }
 
@@ -72,6 +72,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if(Input::file('avatar')){
+        Input::file('avatar')->store('public/uploads');
+        $name = Input::file('avatar')->hashName();
+        }else{
+            $name='default.png';
+        }
         Input::file('avatar')->store('public/uploads');
         $name = Input::file('avatar')->hashName();
         return User::create([

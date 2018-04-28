@@ -20,9 +20,11 @@ Route::get('/', function(){
     return view('welcome');
 });
 Route::get('/home', 'HomeController@index');
+Route::get('/adminpanel', 'HomeController@index');
 
-
-
+//Payment Route
+Route::get('/reservations/checkout', 'ReservationsController@checkout');
+Route::post('/reservations/payment', 'ReservationsController@payment');
 
 //Clients Route
 Route::group([
@@ -132,18 +134,7 @@ Route::get('/client/freerooms', 'ReservationsController@freerooms')->middleware(
 Route::get('/client/rooms/{room_id}','ReservationsController@create')->middleware('auth');
 Route::post('/client/store/{id}','ReservationsController@store')->middleware('auth');
 Route::get('/freerooms/datatable', 'ReservationsController@freeRoomsDatatable')->name('freerooms')->middleware('auth');;
-/*Route::get('/client/approved',function(){
-    $user=App\User::find(1)->notify(new Reserved);
-    //Notification::send($user,new Reserved());
 
- return view('welcome');
-});*/
-/*
-Route::get('/client/approved',function(){
-$user=Auth::user();
-//dd($user);
-Notification::send($user,new RegisterNotification($user));
-});*/
 
 
 

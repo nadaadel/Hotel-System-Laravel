@@ -35,18 +35,6 @@
         </div>
     </div>
 </div>
-<!--
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
-
-
-<script type="text/javascript">
--->
 
 <script type="text/css"href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 <script type="text/css"href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"></script>
@@ -97,12 +85,11 @@ $(document).ready(function() {
     });
 });
 
-</script>
 
-<script>
     $(document).on('click','.deletebtn',function(){
             var user_id = $(this).attr("user-id");
             console.log(user_id)
+            var btn = this;
             var resp = confirm("Are you sure?");
             if (resp == true) {
                 $.ajax({ 
@@ -114,7 +101,11 @@ $(document).ready(function() {
                     },
                     success: function (response) {
                         if(response.response=='success'){
-                        $('#myTable').DataTable().ajax.reload();
+                        var i = btn.parentNode.parentNode.rowIndex;
+                        document.getElementById("myTable").deleteRow(i);
+                        // console.log('success');
+                        // row.parent('tr').remove();
+                        // $('#myTable').DataTable().ajax.reload();
                         }
                         else{
                             alert(response.response);

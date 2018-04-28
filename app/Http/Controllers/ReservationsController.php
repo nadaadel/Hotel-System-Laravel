@@ -14,6 +14,7 @@ use yajra\Datatables\Datatables;
 
 class ReservationsController extends Controller
 {
+
     
     public function getPending(){
   
@@ -80,21 +81,25 @@ class ReservationsController extends Controller
        $room = Room::find($room_id);
         return view('reservations.create',['room'=>$room]);
     }   
+
     public function store($id,Request $request){
+
         $request->validate([
             'accompany_number' => ['required',new RoomCapacityRule(Room::find($id)->capacity)],
         ]);
         $room=Room::find($id);
         if($room->is_reserved){
             return 'Error';
-        }     
+        } 
+            
         $room->is_reserved=1;
         $room->save();
         $user=Auth::user();
         $user->rooms()->attach($user->id,[
         'accompany_number' => $request->accompany_number,
-        'client_paid_price'=>$request->price
+        'client_paid_price'=>$room->price,
+        'is_confirmed' => 1
         ]);
-        return redirect('/client/freerooms'); 
+        return redirect('/client'); 
     }
 }

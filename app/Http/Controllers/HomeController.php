@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth' ,['except' => 'index']);
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -24,10 +24,12 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+
     {
+       
         $countries = countries();  
         Cache::put('countries' , $countries ,1440);
+        return view('admin.home');
         
-        return view('admin.index');
     }
 }

@@ -1,7 +1,7 @@
 @extends('admin.index')
 @section('content')
 
-        <form method="POST" action="/users/update/{{$user->id}}">
+        <form method="POST" enctype="multipart/form-data" action="/users/update/{{$user->id}}">
                 @csrf
                 {{method_field('PUT')}}
                 <div class="form-group row">

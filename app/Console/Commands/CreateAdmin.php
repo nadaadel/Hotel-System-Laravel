@@ -48,13 +48,13 @@ class CreateAdmin extends Command
     public function handle()
     {
 
-        
-        Admin::create([
+       $admin =  Admin::create([
             'name' => 'Admin' ,
             'national_id' => 'null',
             'password' => Hash::make($this->option('password')),
             'email' => $this->option('email'),
             'avatar' => 'public/images/12.jpg',
         ]);
+        $admin->assignRole('superadmin');
     }
 }

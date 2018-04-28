@@ -10,6 +10,7 @@
     <body>
         <form action="/reservations/payment" method="POST">
             @csrf
+            <input type="text" name="ay7aga" id="i7aga">
             <script
                     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                     data-key="{{ env('STRIPE_PUB_KEY') }}"
