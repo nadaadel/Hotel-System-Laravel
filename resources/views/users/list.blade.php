@@ -66,6 +66,7 @@ $(document).ready(function() {
     $(document).on('click','.deletebtn',function(){
             var user_id = $(this).attr("user-id");
             console.log(user_id)
+            var btn = this;
             var resp = confirm("Are you sure?");
             if (resp == true) {
                 $.ajax({ 
@@ -77,7 +78,11 @@ $(document).ready(function() {
                     },
                     success: function (response) {
                         if(response.response=='success'){
-                        $('#myTable').DataTable().ajax.reload();
+                        var i = btn.parentNode.parentNode.rowIndex;
+                        document.getElementById("myTable").deleteRow(i);
+                        // console.log('success');
+                        // row.parent('tr').remove();
+                        // $('#myTable').DataTable().ajax.reload();
                         }
                         else{
                             alert(response.response);

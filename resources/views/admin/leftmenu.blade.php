@@ -10,10 +10,10 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                        <a href="/adminpanel"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Manage System</h3>
-     //functionality of left menu
+     {{-- functionality of left menu --}}
         @role('spueradmin') 
         <li>
             <a href="/managers"> <i class="menu-icon fa fa-user"></i>Manage Managers</a>
@@ -36,7 +36,9 @@
         <li>
                 <a href="/users"> <i class="menu-icon   fa fa-child"></i>Manage Clients</a>
         </li>
-       
+        <li>
+                <a href="/users"> <i class="menu-icon   fa fa-child"></i>Clients Reservations</a>
+        </li>
         <li>
                 <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i> Clients Pending Approval</a>
         </li>

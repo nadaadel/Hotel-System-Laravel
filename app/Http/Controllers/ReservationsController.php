@@ -14,7 +14,33 @@ use App\Rules\RoomCapacityRule;
 
 class ReservationsController extends Controller
 {
-    //
+
+   
+    public function checkout(){
+        return view('reservations.checkout');
+     }
+     public function payment(Request $request){
+         // dd($request->all());
+         // return view('reservations.checkout');
+     try{    
+         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+         $user = User::find(Auth()->user()->id);
+         $user->stripe_token = $request->stripeToken;
+         Payment::create(array(
+             'user_id' => Auth()->user()->id,
+             'amount' => '500' ,
+             'currency' => 'usd'
+             
+         ));
+         
+         return 'Charge successful, you get the course!';
+ 
+         } catch (\Exception $ex) {
+     return $ex->getMessage();
+         }
+ 
+      }
+       //
     public function getPending(){
     //  $usersReservations = User::with('rooms')->get();
     // $roomReservations = Room::with('users')->where('is_confirmed', 0)->get();
@@ -81,21 +107,26 @@ class ReservationsController extends Controller
        $room = Room::find($room_id);
         return view('reservations.create',['room'=>$room]);
     }   
+
     public function store($id,Request $request){
+
         $request->validate([
             'accompany_number' => ['required',new RoomCapacityRule(Room::find($id)->capacity)],
         ]);
         $room=Room::find($id);
         if($room->is_reserved){
             return 'Error';
-        }     
+        } 
+            
         $room->is_reserved=1;
         $room->save();
         $user=Auth::user();
         $user->rooms()->attach($user->id,[
         'accompany_number' => $request->accompany_number,
-        'client_paid_price'=>$request->price
+        'client_paid_price'=>$room->price,
+        'is_confirmed' => 1
         ]);
-        return redirect('/client/freeRooms'); 
+
+        return redirect('/client'); 
     }
 }

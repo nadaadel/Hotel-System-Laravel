@@ -19,11 +19,11 @@ Route::get('/', function(){
     return view('welcome');
 });
 Route::get('/home', 'HomeController@index');
-Route::get('/adminpanel', 'HomeController@showPanel');
+Route::get('/adminpanel', 'HomeController@index');
 
 //Payment Route
-Route::get('/reservations/checkout', 'CheckoutController@checkout');
-Route::post('/reservations/payment', 'CheckoutController@payment');
+Route::get('/reservations/checkout', 'ReservationsController@checkout');
+Route::post('/reservations/payment', 'ReservationsController@payment');
 
 //Clients Route
 Route::get('/users', 'UsersController@index')->name('usersList')->where('role','superadmin');

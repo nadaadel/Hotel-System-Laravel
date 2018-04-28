@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateUserRequest;
 use App\User;
 use App\Admin;
 use App\Http\Requests\StoreUserRequest;
@@ -72,7 +73,7 @@ class UsersController extends Controller
     $user = User::find($id);
     return view('users.update' ,compact('user' , 'countries'));
     }
-    public function update($id , Request $request){
+    public function update($id , UpdateUserRequest $request){
 
     $user = User::find($id);
     $user->name = $request['name'];
@@ -123,7 +124,6 @@ class UsersController extends Controller
         $user->registered_by=$currentuser;
         $user->save();
         $user->notify(new SendWelcomeMail($user));
-
         return redirect('/users/approve');
 
     }
