@@ -55,7 +55,7 @@ Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login
 
 Route::group([
 
-    'middleware'=>'auth:admin,forbid-banned-user',
+    'middleware'=>'auth:admin',
 
   
 ],

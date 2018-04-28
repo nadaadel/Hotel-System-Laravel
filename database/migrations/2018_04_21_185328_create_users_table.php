@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->string('country');
             $table->string('gender');
-            $table->string('avatar');
+            $table->string('avatar')->default('null');
             $table->rememberToken();
             $table->string('stripe_token')->nullable();
             $table->integer('is_registered')->default(0);

@@ -24,10 +24,12 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+
     {
+       
         $countries = countries();  
         Cache::put('countries' , $countries ,1440);
-        
         return view('admin.home');
+        
     }
 }
