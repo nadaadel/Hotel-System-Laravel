@@ -16,7 +16,7 @@
                                 <th>Name</th>
                                 <th>Number</th>
                                 @if(Auth::guard('admin')->user()->hasRole('superadmin'))
-                                <th>Admin Name</th>
+                                <th>Manager Name</th>
                                 @endif
                                 <th >Action</th>
                                 {{ csrf_field() }}
