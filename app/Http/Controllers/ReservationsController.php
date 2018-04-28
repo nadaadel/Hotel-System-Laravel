@@ -15,39 +15,12 @@ use App\Rules\RoomCapacityRule;
 class ReservationsController extends Controller
 {
 
-   
-    public function checkout(){
-        return view('reservations.checkout');
-     }
-     public function payment(Request $request){
-         // dd($request->all());
-         // return view('reservations.checkout');
-     try{    
-         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-         $user = User::find(Auth()->user()->id);
-         $user->stripe_token = $request->stripeToken;
-         Payment::create(array(
-             'user_id' => Auth()->user()->id,
-             'amount' => '500' ,
-             'currency' => 'usd'
-             
-         ));
-         
-         return 'Charge successful, you get the course!';
- 
-         } catch (\Exception $ex) {
-     return $ex->getMessage();
-         }
- 
-      }
-       //
+    
     public function getPending(){
-    //  $usersReservations = User::with('rooms')->get();
-    // $roomReservations = Room::with('users')->where('is_confirmed', 0)->get();
-    // $reservation = User::with('rooms')->wherePviot('is_confirmed', 0)->get();
+  
      $reservation = User::find(1)->rooms()->where('is_confirmed', 0)->get();
 
-    //$reservation = DB::table('room_user')->where('is_confirmed' , 0)->first();
+  
      dd($reservation);
 
 

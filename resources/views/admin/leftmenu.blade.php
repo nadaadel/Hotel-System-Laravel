@@ -13,13 +13,8 @@
                         <a href="/adminpanel"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Manage System</h3>
-<<<<<<< HEAD
-     {{-- functionality of left menu --}}
-        @role('spueradmin') 
-=======
      
         @role('superadmin') 
->>>>>>> 5a2951c14a96f2ca256e31165319fd83604a5866
         <li>
             <a href="/managers"> <i class="menu-icon fa fa-user"></i>Manage Managers</a>
         </li>
@@ -48,15 +43,6 @@
                 <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i> Clients Pending Approval</a>
         </li>
       @endrole
-{{--                   
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Chart JS</a></li>
-                            <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Flot Chart</a></li>
-                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Peity Chart</a></li>
-                        </ul>
-                    </li> --}}
 
 
                 </ul>

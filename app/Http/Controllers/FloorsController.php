@@ -11,10 +11,7 @@ use yajra\Datatables\Datatables;
 
 class FloorsController extends Controller
 {
-    public function __construct(){
-
-            $this->middleware('auth:admin');
-    }
+   
 
     public function create (){
         return view('floors.create',['floor_number'=>$this->generateFloorNumber()]); 

@@ -21,10 +21,7 @@ class ReceptionistController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
+   
 
     /**
      * Show the application dashboard.
@@ -55,9 +52,9 @@ class ReceptionistController extends Controller
             if(($loginname->id==$manager->id)||($loginname->hasRole('superadmin'))){
                 $loginname="yes";
             }
-            return view('receptionists.action',['id'=>$receptionists->id,'ban'=>$loginname,'receptionist'=>$receptionist]);
+            return view('receptionists.action',['id'=>$receptionists->id,'role'=>$loginname,'receptionist'=>$receptionist]);
            
-            
+            //return('data');
             
         })
         ->addColumn('managername', function ($receptionists) {
@@ -168,9 +165,9 @@ class ReceptionistController extends Controller
         public function destroy($id)
         {
             $receptionist=Admin::find($id);
+            Admin::find($id)->delete();
             $receptionistAvatar=  $receptionist->avatar;
             Storage::delete($receptionistAvatar);
-            Admin::find($id)->delete();
             return response()->json(['response' => "success"]);
           
            
@@ -181,18 +178,13 @@ class ReceptionistController extends Controller
             {
                 $receptionist->ban();
             }
-            
-            return redirect(route('receptionistList'));
-        }
-        function unban($id){
-            $receptionist=Admin::find($id);
-            if ($receptionist->isBanned())
-            {
+            else{
                 $receptionist->unban();
             }
             
             return redirect(route('receptionistList'));
         }
+        
        
     
 

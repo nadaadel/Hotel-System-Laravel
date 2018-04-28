@@ -21,7 +21,9 @@
                                 <th>Created By</th>
                                 @endrole
                                 <th >Action</th>
+
                                 {{ csrf_field() }}
+                               
                             </tr>
                         </thead>
                     </table>
@@ -31,21 +33,24 @@
     </div>
 </div>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
     $('#myTable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ url('data') }}',
+        ajax: '{{ url('data') }}', 
         columns: [
             {data: 'id', name: 'id'},
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
             {data:'created_at',name:'created_at'},
             @role('superadmin')
-            {data:'managername',name:'managername'}   ,
+            {data:'managername',name:'managername'},
             @endrole
+
             {data: 'action', name: 'action', orderable: false, searchable: false},
           
         ]
@@ -62,12 +67,16 @@ $(document).ready(function() {
                     type: 'POST',
                     url: '/receptionists/'+id ,
                     data:{
-                    '_token':'{{csrf_token()}}',
+                    '_token':'{{ csrf_token() }}',
                     '_method':'DELETE',
                     },
                     success: function (response) {
-                        if(response.response=='success'){
-                        $('#myTable').DataTable().ajax.reload();
+                        if(response.response=='success'){ 
+                        
+                               console.log("hiiiiii")                  
+                        $('#myTable').DataTable.ajax.reload();
+                        
+                        
                         }
                         else{
                             alert(response.response);

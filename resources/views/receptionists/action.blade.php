@@ -5,17 +5,17 @@
 </head>
 <bod>
 
-@if($ban=="yes")
+@if($role=="yes")
 
 <a href="/receptionists/{{$id}}/edit"  type="button" class="btn btn-xs btn-success" >Edit</a>
 <a href="/managers/{{$id}}"  type="button" class="btn btn-xs btn-warning" >Show</a><br>
-<button  id={{$id}} value="delete" class="btn btn-danger deletebtn" >
+<button id={{$id}}  value="delete" class="btn btn-danger deletebtn" ><script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
         <i class="fa fa-trash go inline" aria-hidden="true"></i>
- </button>
+</button>
 
 @if($receptionist->isBanned())
 
-<a  href="receptionists/{{$receptionist->id}}/unban" type="button" class="btn btn-xs btn-primary" id="pushme" >UnBan</a><br>
+<a  href="receptionists/{{$receptionist->id}}/ban" type="button" class="btn btn-xs btn-primary" id="pushme" >UnBan</a><br>
 
 @else
 

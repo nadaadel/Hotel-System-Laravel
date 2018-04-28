@@ -12,10 +12,7 @@ use yajra\Datatables\Datatables;
 
 class RoomController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
+    
     public function index()
     {
         $rooms = Room::all();

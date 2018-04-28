@@ -16,13 +16,10 @@ use Auth;
 class UsersController extends Controller
 {
     
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
+    
 
 	public function index(){
-    //dd(Auth::guard('admin')->user()->hasRole('manager'));
+    
     $users = User::paginate(4);
     return view('users.list' ,compact('users'));
 

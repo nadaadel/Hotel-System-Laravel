@@ -35,18 +35,6 @@
         </div>
     </div>
 </div>
-<!--
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
-
-
-<script type="text/javascript">
--->
 
 <script type="text/css"href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
 <script type="text/css"href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"></script>
@@ -97,11 +85,7 @@ $(document).ready(function() {
     });
 });
 
-</script>
-<<<<<<< HEAD
 
-=======
-<script>
     $(document).on('click','.deletebtn',function(){
             var user_id = $(this).attr("user-id");
             console.log(user_id)
@@ -131,5 +115,5 @@ $(document).ready(function() {
             }
            });
     </script>  
->>>>>>> 7b7c7e05f4a654c449efc8aa4bc09975ba0ac3b4
+
 @endsection
