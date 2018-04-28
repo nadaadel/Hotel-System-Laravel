@@ -90,7 +90,7 @@ Route::get('/rooms/edit/{id}', 'RoomController@edit');
 Route::get('/rooms/create', 'RoomController@create');
 Route::post('/rooms','RoomController@store');
 Route::put('/rooms/update/{id}', 'RoomController@update');
-Route::get('/rooms/delete/', 'RoomController@destroy');
+Route::delete('rooms/delete/{id}', 'RoomController@destroy');
 Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
 
 //reservations routes
@@ -99,7 +99,7 @@ Route::get('/client', 'ReservationsController@index')->name('reservation.index')
 Route::get('/client/freeRooms', 'ReservationsController@freeRooms')->middleware('auth');
 Route::get('/client/rooms/{room_id}','ReservationsController@create')->middleware('auth');
 Route::post('/client/store/{id}','ReservationsController@store')->middleware('auth');
-
+Route::get('/users/reservations', 'ReservationsController@userReservations');
 /*Route::get('/client/approved',function(){
     $user=App\User::find(1)->notify(new Reserved);
     //Notification::send($user,new Reserved());

@@ -100,6 +100,8 @@ class UsersController extends Controller
     return response()->json(['response' => "success"]);
 
     }
+
+
     public function approve(){
         return view('users.approve');
     }
@@ -116,7 +118,9 @@ class UsersController extends Controller
     }
     public function changeapprove($id){
         $user = User::find($id);
+        $currentuser=Auth::guard('admin')->user()->id;
         $user->is_registered=1;
+        $user->registered_by=$currentuser;
         $user->save();
         $user->notify(new SendWelcomeMail($user));
 
