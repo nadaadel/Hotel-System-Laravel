@@ -1,12 +1,8 @@
 
-@extends('admin.index')
+@extends('layouts.app')
 @section('content')
 
-@if($user->isBanned())
 
-<div>You are banned</div>
-
-@else
 <center>
   <h1>Clients Reservations</h1><br>
    
@@ -30,5 +26,5 @@
         </tr>
         </table>
 </center>
-        @endif
+
         @endsection

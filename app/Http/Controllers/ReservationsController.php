@@ -35,8 +35,6 @@ class ReservationsController extends Controller
             'user'=>$user,
         ]);
     }
-
-
     public function userReservations()
     {
         $users = User::all();
@@ -44,12 +42,37 @@ class ReservationsController extends Controller
         
         if($role->hasRole('superadmin')){
             $users = User::all();
-            return view('reservations.reservations')->with('reservations',$users);
+            return view('reservations.users_reserve')->with('reservations',$users);
         }
 
         elseif ($role->hasRole('receptionist'))
             {
-                $user = Auth::guard('admin')->user();
+                 $users = User::all()->where('registered_by',$role->id); 
+                return view('reservations.users_reserve' , ['reservations' =>$users ]
+            );
+            }
+            else{
+                dd('not allowed, you are not admin or receptionist');
+           }         
+
+    }
+
+    public function userAdminReservations()
+    {
+        $users = User::all();
+        $role=Auth::guard('admin')->user();
+        $user = Auth::guard('admin')->user();
+        
+        if($role->hasRole('superadmin')){
+            $users = User::all();
+            return view('reservations.reservations',['reservations' =>$users ,
+            'user' =>$user]
+        );
+        }
+
+        elseif ($role->hasRole('receptionist'))
+            {
+                
                 $users = User::all()->where('registered_by',$role->id); 
                 return view('reservations.reservations' , ['reservations' =>$users ,
                 'user' =>$user]

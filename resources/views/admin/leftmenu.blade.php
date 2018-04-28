@@ -37,7 +37,7 @@
                 <a href="/users"> <i class="menu-icon   fa fa-child"></i>Manage Clients</a>
         </li>
         <li>
-                <a href="/users/reservations"> <i class="menu-icon   fa fa-child"></i>Clients Reservations</a>
+                <a href="/users/admin/reservations"> <i class="menu-icon   fa fa-child"></i>Clients Reservations</a>
         </li>
         <li>
                 <a href="/users/approve"> <i class="menu-icon   fa fa-institution"></i> Clients Pending Approval</a>

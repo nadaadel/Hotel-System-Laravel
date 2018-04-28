@@ -37,6 +37,8 @@ Route::get('/client', 'ReservationsController@index')->name('reservation.index')
 Route::get('/client/freeRooms', 'ReservationsController@freeRooms');
 Route::get('/client/rooms/{room_id}','ReservationsController@create');
 Route::post('/client/store/{id}','ReservationsController@store');
+Route::get('/users/reservations', 'ReservationsController@userReservations');
+
 
 
 });
@@ -60,7 +62,10 @@ Route::group([
 function () {
 
     Route::get('/adminpanel', 'HomeController@index')->name('admin.dashboard');
-    Route::get('/users/reservations', 'ReservationsController@userReservations');
+    Route::get('/users/admin/reservations', 'ReservationsController@userAdminReservations');
+    
+    
+
 
  //users routes
 Route::get('/users', 'UsersController@index')->name('usersList')->where('role','superadmin');
