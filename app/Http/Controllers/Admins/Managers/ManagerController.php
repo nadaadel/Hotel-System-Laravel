@@ -21,7 +21,7 @@ class ManagerController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        
     }
 
     /**
@@ -46,7 +46,6 @@ class ManagerController extends Controller
     public function datatable()
     {
         $manager =Admin::role('manager')->select(['id', 'name', 'email']);
-        dd($manager);
         return Datatables::of($manager)
         ->addColumn('action', function ($manager) {
             
@@ -145,10 +144,11 @@ class ManagerController extends Controller
         public function destroy($id)
         {
             $manager=Admin::find($id);
-            $ManagerAvatar=$manager->avatar;
-            Storage::delete($ManagerAvatar);
             Admin::find($id)->delete();
-            return redirect(route('managerList'));
+            //$ManagerAvatar=$manager->avatar;
+            //Storage::delete($ManagerAvatar);
+            
+            return response()->json(['response' => "success"]);
           
            
         }

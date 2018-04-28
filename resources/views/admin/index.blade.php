@@ -13,6 +13,7 @@
        <!-- /header -->
 
         <div class="content mt-3">
+
            @yield('content')
            
         </div> <!-- .content -->

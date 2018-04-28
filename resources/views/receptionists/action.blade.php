@@ -1,12 +1,5 @@
 
-<html>
-<head>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-</head>
-<body>
-
-@if($ban=="yes")
-
+@if($role=="yes")
 <a href="/receptionists/{{$id}}/edit"  type="button" class="btn btn-xs btn-success" >Edit</a>
 <a href="/receptionists/{{$id}}"  type="button" class="btn btn-xs btn-warning" >Show</a><br>
 <button  m-id={{$id}} value="delete" class="btn btn-danger deletebtn" >
@@ -15,7 +8,7 @@
 
 @if($receptionist->isBanned())
 
-<a  href="receptionists/{{$receptionist->id}}/unban" type="button" class="btn btn-xs btn-primary" id="pushme" >UnBan</a><br>
+<a  href="receptionists/{{$receptionist->id}}/ban" type="button" class="btn btn-xs btn-primary" id="pushme" >UnBan</a><br>
 
 @else
 
@@ -24,8 +17,4 @@
 @endif
 
 @endif
-
-</body>
-
-</html>
 

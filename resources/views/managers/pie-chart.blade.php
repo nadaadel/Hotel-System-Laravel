@@ -1,68 +1,47 @@
-
-<div id="container" style="width:100%; height:400px;">
-</div>
+@extends('layouts.app')
+@section('content')
+<script src="https://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript">
-Highcharts.chart('container', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Browser market shares in January, 2018'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
+    $(function () { 
+        var data_click = <?php echo $click; ?>;
+        var data_viewer = <?php echo $viewer; ?>;
+    $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Yearly Website Ratio'
+        },
+        xAxis: {
+            categories: ['2013','2014','2015', '2016']
+        },
+        yAxis: {
+            title: {
+                text: 'Rate'
             }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Chrome',
-            y: 61.41,
-            sliced: true,
-            selected: true
+        },
+        series: [{
+            name: 'Click',
+            data: data_click
         }, {
-            name: 'Internet Explorer',
-            y: 11.84
-        }, {
-            name: 'Firefox',
-            y: 10.85
-        }, {
-            name: 'Edge',
-            y: 4.67
-        }, {
-            name: 'Safari',
-            y: 4.18
-        }, {
-            name: 'Sogou Explorer',
-            y: 1.64
-        }, {
-            name: 'Opera',
-            y: 1.6
-        }, {
-            name: 'QQ',
-            y: 1.2
-        }, {
-            name: 'Other',
-            y: 2.61
+            name: 'View',
+            data: data_viewer
         }]
-    }]
+    });
 });
 </script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dashboard</div>
+                <div class="panel-body">
+                    <div id="container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
