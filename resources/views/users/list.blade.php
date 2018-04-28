@@ -98,9 +98,7 @@ $(document).ready(function() {
 });
 
 </script>
-<<<<<<< HEAD
 
-=======
 <script>
     $(document).on('click','.deletebtn',function(){
             var user_id = $(this).attr("user-id");
@@ -126,5 +124,5 @@ $(document).ready(function() {
             }
            });
     </script>  
->>>>>>> 7b7c7e05f4a654c449efc8aa4bc09975ba0ac3b4
+
 @endsection

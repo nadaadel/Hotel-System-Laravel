@@ -166,8 +166,8 @@ class ReceptionistController extends Controller
         {
             $receptionist=Admin::find($id);
             Admin::find($id)->delete();
-            //$receptionistAvatar=  $receptionist->avatar;
-            //Storage::delete($receptionistAvatar);
+            $receptionistAvatar=  $receptionist->avatar;
+            Storage::delete($receptionistAvatar);
             return response()->json(['response' => "success"]);
           
            
@@ -178,18 +178,13 @@ class ReceptionistController extends Controller
             {
                 $receptionist->ban();
             }
-            
-            return redirect(route('receptionistList'));
-        }
-        function unban($id){
-            $receptionist=Admin::find($id);
-            if ($receptionist->isBanned())
-            {
+            else{
                 $receptionist->unban();
             }
             
             return redirect(route('receptionistList'));
         }
+        
        
     
 

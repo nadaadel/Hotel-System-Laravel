@@ -15,7 +15,7 @@
 
 @if($receptionist->isBanned())
 
-<a  href="receptionists/{{$receptionist->id}}/unban" type="button" class="btn btn-xs btn-primary" id="pushme" >UnBan</a><br>
+<a  href="receptionists/{{$receptionist->id}}/ban" type="button" class="btn btn-xs btn-primary" id="pushme" >UnBan</a><br>
 
 @else
 

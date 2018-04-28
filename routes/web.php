@@ -20,7 +20,7 @@ Route::get('/', function(){
     return view('welcome');
 });
 Route::get('/home', 'HomeController@index');
-//Route::get('/adminpanel', 'HomeController@showPanel');
+
 
 
 
@@ -53,7 +53,7 @@ Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login
 
 Route::group([
 
-    'middleware'=>'auth:admin'
+    'middleware'=>'auth:admin,forbid-banned-user',
 
   
 ],
@@ -92,7 +92,7 @@ Route::put('/receptionists/{id}', 'Admins\Receptionists\ReceptionistController@u
 Route::delete('/receptionists/{id}', 'Admins\Receptionists\ReceptionistController@destroy')->name('receptionistdelete');
 Route::get('data', 'Admins\Receptionists\ReceptionistController@datatable');
 Route::get('/receptionists/{id}/ban', 'Admins\Receptionists\ReceptionistController@ban');
-Route::get('/receptionists/{id}/unban', 'Admins\Receptionists\ReceptionistController@unban');
+Route::get('/receptionists/{id}/ban', 'Admins\Receptionists\ReceptionistController@ban');
 
 //pending page
 Route::get('/users/approve','UsersController@approve');
