@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+@hasrole('superadmin|manager')
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -11,7 +11,6 @@
     </div>
 @endif
 <h1>Room editing</h1>
-
 <form method="post" action="/rooms/update/{{ $room->id}}">
 {{csrf_field()}}
 {{method_field('PUT')}}
@@ -37,4 +36,8 @@ Floor Name:-
 
 <input type="submit" value="Submit" class="btn btn-primary">
 </form>
+@else   
+   <h1 style="color:red">Your are not have permission</h1>
+@endhasrole
+
 @endsection

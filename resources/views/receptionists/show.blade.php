@@ -1,6 +1,6 @@
 @extends('admin.index')
 @section('content')
-
+@hasrole('superadmin|manager')
        @if($receptionist)
             <fieldset>
                 <legend style="background-color: gray">receptionist Info </legend>
@@ -13,4 +13,8 @@
             </fieldset>
             
        @endif
+       @else   
+       <h1 style="color:red">Your are not have permission</h1>
+    @endhasrole
+    
 @endsection

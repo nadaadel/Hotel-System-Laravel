@@ -9,15 +9,20 @@
     </head>
     <body>
         <h1 style="color:purple">Confirm Your Reservation with online Payment</h1>
-        <form action="/client/store/{{$room->id}}t" method="POST">
+        <form action="/client/store/{{$room->id}}" method="POST">
             @csrf
             <label>Enter your Accompany Number</label>
             <input type="number" name="accompany_number" max="{{$room->capacity}}"/>
-            <input type="hidden" name="price" value="{{$room->price}}" /> </br>
+            <input id="price" type="hidden" name="price" value="{{$room->price}}" /> </br>
+            <script>
+                
+            console.log(document.getElementById("#price").value);            
+                
+            </script>
             <script
                     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                     data-key="{{ env('STRIPE_PUB_KEY') }}"
-                    data-amount="1999"
+                    data-amount=
                     data-name="Hotel System"
                     data-description="Hotel Reservation Payment"
                     data-image="{{ asset('images/payment.png') }}"

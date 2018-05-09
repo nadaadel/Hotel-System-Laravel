@@ -3,13 +3,11 @@
 @section('content')
 <center>
 
-
-@if($user->is_registered==1)
+@if($user->registered_by>0)
 <h1>My Reservations</h1><br>
 <a href="/client/freerooms" >
    <button class="btn-success">New Reservation</button></a></center>
    <br><table class="table table-striped">
-      
         <th><strong> Room Number </strong></th>
         <th><strong> Accompany Number </strong></th>
         <th><strong> Paid Price </strong></th>

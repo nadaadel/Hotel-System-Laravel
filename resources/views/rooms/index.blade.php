@@ -1,7 +1,6 @@
-
 @extends('admin.index')
-
 @section('content')
+@hasrole('superadmin|manager')
 <head>    <meta name="_token" content="{{csrf_token()}}" />
 </head>
 <a href={{ URL::to('rooms/create' )}} >
@@ -24,7 +23,6 @@
                                 <th>Created At</th>
                                 <th >Action</th>
                                 {{ csrf_field() }}
-
                                 @if(Auth::guard('admin')->user()->hasRole('superadmin'))
                                 <th>Created By</th>
                             @endif
@@ -113,4 +111,8 @@ $(document).ready(function() {
 });
 
 </script>
+@else   
+<h1 style="color:red">Your are not have permission</h1>
+@endhasrole
+
 @endsection

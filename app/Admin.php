@@ -28,5 +28,8 @@ class Admin extends Authenticatable implements BannableContract
         'password', 'remember_token',
     ];
 
-    
+    public function getCreatedAtAttribute($value)
+    {
+        return date('M j, Y', strtotime( $value));
+    }
 }

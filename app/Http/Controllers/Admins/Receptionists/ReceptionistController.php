@@ -54,7 +54,7 @@ class ReceptionistController extends Controller
             }
             return view('receptionists.action',['id'=>$receptionists->id,'role'=>$loginname,'receptionist'=>$receptionist]);
            
-            //return('data');
+      
             
         })
         ->addColumn('managername', function ($receptionists) {

@@ -1,6 +1,7 @@
 @extends('admin.index')
 @section('content')
 
+
 <div class="container">
         <div class="col-md-8">
                     <form method="POST" enctype="multipart/form-data" action="{{ route('storeUser') }}">

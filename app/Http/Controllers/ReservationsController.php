@@ -27,11 +27,12 @@ class ReservationsController extends Controller
     }
     public function index()
     {
-       $users = User::find(Auth::user()->id);
+       // $users = User::find(Auth::user()->id);
        $user = User::find(Auth::user()->id);
+       //dd($user->rooms);
         return view('reservations.index',
         [
-            'reservations' => $users->rooms ,
+            'reservations' => $user->rooms ,
             'user'=>$user,
         ]);
     }
@@ -56,7 +57,6 @@ class ReservationsController extends Controller
            }         
 
     }
-
     public function userAdminReservations()
     {
         $users = User::all();
@@ -88,7 +88,7 @@ class ReservationsController extends Controller
     public function freeRooms(){
        $rooms = Room::all()->where('is_reserved','0');
        
-        return view('reservations.freeRooms',
+        return view('reservations.freerooms',
         [
             'rooms' => $rooms,
         ]);
@@ -121,6 +121,9 @@ class ReservationsController extends Controller
         $room->is_reserved=1;
         $room->save();
         $user=Auth::user();
+        
+        $room=Room::find($id);
+        // dd($room->price)    ;    
         $user->rooms()->attach($user->id,[
         'accompany_number' => $request->accompany_number,
         'client_paid_price'=>$room->price,

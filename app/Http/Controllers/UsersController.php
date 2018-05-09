@@ -26,6 +26,7 @@ class UsersController extends Controller
     }
     public function create(){
 
+        
         $countries = Cache::get('countries');
         return view('users.create' , compact('countries'));
     }
@@ -88,7 +89,10 @@ class UsersController extends Controller
 
 
     public function store(StoreUserRequest $request){
+        $user=User::find($request->id)->isBanned();
+        
         User::create($request->all());
+        
         return redirect('/users');
         }
 
@@ -128,3 +132,4 @@ class UsersController extends Controller
     }
 
 }
+    

@@ -5,10 +5,10 @@ Auth::routes();
 use App\User;
 
 //forget password for admin
-Route::post('/admin/login/password/email','Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
-Route::get('/admin/login/password/reset','Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
-Route::post('/admin/login/password/reset','Auth\AdminResetPasswordController@reset');
-Route::get('/admin/login/password/reset/{token}','Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+Route::post('admin/login/password/email','Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+Route::get('admin/login/password/reset','Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::post('admin/login/password/reset','Auth\AdminResetPasswordController@reset');
+Route::get('admin/login/password/reset/{token}','Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 
 Route::get('/getrole' , function(){
     dd(Auth::guard('admin')->user()->getRoleNames()->first());
@@ -34,7 +34,7 @@ Route::group([
 
 Route::get('/users/editprofile/{id}', 'UsersController@editProfile')->name('usersEdit');
 Route::get('/client', 'ReservationsController@index')->name('reservation.index');
-Route::get('/client/freeRooms', 'ReservationsController@freeRooms');
+Route::get('/client/freerooms', 'ReservationsController@freeRooms');
 Route::get('/client/rooms/{room_id}','ReservationsController@create');
 Route::post('/client/store/{id}','ReservationsController@store');
 Route::get('/users/reservations', 'ReservationsController@userReservations');
@@ -55,7 +55,7 @@ Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login
 
 Route::group([
 
-    'middleware'=>'auth:admin,forbid-banned-admin',
+    'middleware'=>'auth:admin',
 
   
 ],
@@ -64,9 +64,6 @@ function () {
     Route::get('/adminpanel', 'HomeController@index')->name('admin.dashboard');
     Route::get('/users/admin/reservations', 'ReservationsController@userAdminReservations');
     
-    
-
-
  //users routes
 Route::get('/users', 'UsersController@index')->name('usersList')->where('role','superadmin');
 Route::get('/users/create', 'UsersController@create')->name('createUser');
@@ -131,11 +128,9 @@ Route::get('rooms/datatable', 'RoomController@datatable')->name('rooms');
 
 //reservations routes
 
-Route::get('/client', 'ReservationsController@index')->name('reservation.index')->middleware('auth');
-
-Route::get('/client/freerooms', 'ReservationsController@freerooms')->middleware('auth');
-Route::get('/client/rooms/{room_id}','ReservationsController@create')->middleware('auth');
-Route::post('/client/store/{id}','ReservationsController@store')->middleware('auth');
+// Route::get('/client', 'ReservationsController@index')->name('reservation.index')->middleware('auth');
+// Route::get('/client/rooms/{room_id}','ReservationsController@create')->middleware('auth');
+// Route::post('/client/store/{id}','ReservationsController@store')->middleware('auth');
 Route::get('/freerooms/datatable', 'ReservationsController@freeRoomsDatatable')->name('freerooms')->middleware('auth');;
 
 

@@ -5,10 +5,12 @@
 <div>You are banned</div>
 
 @else
+@hasrole('superadmin|manager')
 <form action="/users/create" method="GET">
     @csrf
     <input type="submit" class="btn btn-success"Value="Create Client">
 </form>
+@endhasrole
 
 <br/>
 

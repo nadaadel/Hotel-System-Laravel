@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+@hasrole('superadmin|manager')
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -37,4 +37,8 @@ Floor Name:-
 <br>
 <input type="submit" value="Submit" class="btn btn-primary">
 </form>
+@else   
+   <h1 style="color:red">Your are not have permission</h1>
+@endhasrole
+
 @endsection

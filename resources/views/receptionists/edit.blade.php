@@ -1,5 +1,6 @@
 @extends('admin.index')
 @section('content')
+@hasrole('superadmin|manager')
 <div class="card-body">
                     <form method="POST" action="/receptionists/{{$receptionist->id}}" enctype="multipart/form-data">
                         @csrf
@@ -92,5 +93,8 @@
                     </form>
                 </div>
 
-
+@else   
+                <h1 style="color:red">Your are not have permission</h1>
+             @endhasrole
+             
 @endsection

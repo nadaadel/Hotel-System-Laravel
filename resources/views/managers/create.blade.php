@@ -1,5 +1,6 @@
 @extends('admin.index')
 @section('content')
+@hasrole('superadmin')
 <div>Create Form</div>
 <div class="card-body">
                     <form method="POST" action="/managers" enctype="multipart/form-data" >
@@ -91,5 +92,8 @@
      
                     </form>
                 </div>
-
+                @else   
+                <h1 style="color:red">Your are not have permission</h1>
+             @endhasrole
+             
 @endsection
